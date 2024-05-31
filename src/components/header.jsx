@@ -6,9 +6,9 @@ const Header = () => {
         <>
             <header className="bg-white">
                 <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-                    <a className="block text-teal-600" href="#">
-                        <span className=" font-bold">DashBoard</span>
-                    </a>
+                    <Link  className="block text-teal-600" href="/">
+                        <span className=" text-indigo-600 font-bold">DashBoard</span>
+                    </Link>
 
                     <div className="flex flex-1 items-center justify-end md:justify-between">
                         <nav aria-label="Global" className="hidden md:block">

@@ -17,20 +17,6 @@ export default function Home() {
     return (
         <>
             
-            {/* {isLoading && <h1>Loading...</h1>}
-            {error && <h1>{error}</h1>}
-            {products.map((product) => (
-                <div key={product.id}>
-                    <Image
-                        src={product.imge}
-                        alt={product.name}
-                        width={200}
-                        height={200}
-                    />
-                    <h1>{product.title}</h1>
-                    <p>{product.views}</p>
-                </div>
-            ))} */}
         </>
     )
 }
