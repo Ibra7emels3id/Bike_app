@@ -25,8 +25,23 @@ const Page = ({ params }) => {
     const getItemApi = async () => {
         const res = await fetch(`http://localhost:9000/posts/${params.PasteId}`)
         const ItemApi = await res.json()
-        setData({ ...Data, id: ItemApi.id , title: ItemApi.title, description: ItemApi.description, image: ItemApi.image, category: ItemApi.category })
+        setData({
+            ...Data,
+            id: ItemApi.id,
+            title: ItemApi.title,
+            description: ItemApi.description,
+            image: ItemApi.image,
+            category: ItemApi.category
+            , price: ItemApi.price,
+            rating: {
+                ...Data.rating,
+                count: ItemApi.rating.count , 
+                rate: ItemApi.rating.rate
+            }
+        })
+        console.log(ItemApi);
     }
+
     useEffect(() => {
         getItemApi()
     }, [params.PasteId])

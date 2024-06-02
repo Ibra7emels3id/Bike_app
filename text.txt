@@ -1,0 +1,34 @@
+<StyledTableCell component="th" scope="row">
+                                        <Checkbox
+                                            checked={it.condition}
+                                            onChange={(event) => {
+                                                setChecked(event.target.checked);
+                                                handleChange(it)
+                                            }}
+                                            inputProps={{ 'aria-label': 'controlled' }}
+                                        />
+                                    </StyledTableCell>
+                                    <StyledTableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} component="th" scope="row">
+                                        <Image
+                                            src={it?.image}
+                                            height={70}
+                                            width={70}
+                                            alt='img'
+                                        />
+                                    </StyledTableCell>
+                                    <StyledTableCell align="left">{it.title}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.description}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.price}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.rating.count}</StyledTableCell>
+                                    <StyledTableCell align="left">
+                                        <Link href={`/admin/dashboard/${it.id}`} className=" bg-green-800 hover:bg-green-950 text-white font-bold py-2 px-4 rounded">
+                                            <EditIcon />
+                                        </Link>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="left">
+                                        <button onClick={() => {
+                                            handleDelete(`${it.id}`)
+                                        }} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            <DeleteIcon />
+                                        </button>
+                                    </StyledTableCell>

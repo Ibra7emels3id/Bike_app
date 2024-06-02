@@ -9,9 +9,20 @@ import Image from 'next/image';
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
 
+// import Table ui
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
 
 const Page = () => {
     const [checked, setChecked] = React.useState(true);
+    const [item, setItem] = React.useState({});
     const dispatch = useAppDispatch()
     const { products, isLoading, error } = useAppSelector((state) => state.data)
 
@@ -33,6 +44,7 @@ const Page = () => {
                 })
             })
             const data = await res.json()
+            setItem(data)
             return data
         } catch (err) {
             console.error(err)
@@ -42,73 +54,89 @@ const Page = () => {
 
     React.useEffect(() => {
         dispatch(FetchProducts())
-    }, [dispatch, products , checked]);
+    }, [dispatch, item]);
+
+    // handle Table Style
+    const StyledTableCell = styled(TableCell)(({ theme }) => ({
+        [`&.${tableCellClasses.head}`]: {
+            backgroundColor: theme.palette.common.black,
+            color: theme.palette.common.white,
+        },
+        [`&.${tableCellClasses.body}`]: {
+            fontSize: 14,
+        },
+    }));
+
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
 
     return (
         <>
             <Header />
             <div className="overflow-x-auto w-[90%] m-auto mt-32">
-                <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm border">
-                    <thead className="ltr:text-left rtl:text-right bg-[#3323c0]">
-                        <tr>
-                            <td className="px-4 py-2 w-[150px]">
-                                <label className="sr-only" htmlFor="Row1">Row 1</label>
-                                <h5 className="size-5 rounded border-gray-300 text-white">condition</h5>
-                            </td>
-                            <td className="whitespace-nowrap px-4 py-2 font-medium text-white">img</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-white">Title</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-white w-[500px]">description</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-white">Price</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-white w-[80px]">Count</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-white text-center w-[100px]">Edit</td>
-                            <td className="whitespace-nowrap px-4 py-2 text-white text-center w-[100px]">Delete</td>
-                        </tr>
-                    </thead>
-                    <tbody className="divide-y divide-gray-200">
-                        {products?.map((it) => {
-                            return (
-                                <>
-                                    <tr key={it.id}>
-                                        <td className="px-4 py-2">
-                                            <Checkbox
-                                                checked={it.condition}
-                                                onChange={(event) => {
-                                                    setChecked(event.target.checked);
-                                                    handleChange(it)
-                                                }}
-                                                inputProps={{ 'aria-label': 'controlled' }}
-                                            />
-                                        </td>
-                                        <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">
-                                            <Image
-                                                src={it?.image}
-                                                height={50}
-                                                width={50}
-                                                alt='img'
-                                            />
-                                        </td>
-                                        <td className="whitespace-nowrap px-4 py-2 text-gray-700">{it?.title}</td>
-                                        <td className="whitespace-nowrap px-4 py-2 text-gray-700 ">{it?.description.slice(0, 50)}...</td>
-                                        <td className="whitespace-nowrap px-4 py-2 text-gray-700">$120,000</td>
-                                        <td className="whitespace-nowrap px-4 py-2 ">Count</td>
-                                        <td className="whitespace-nowrap px-4 py-2 text-end ">
-                                            <Link href={`/admin/dashboard/${it.id}`} className=" bg-green-800 hover:bg-green-950 text-white font-bold py-2 px-4 rounded">
-                                                <EditIcon />
-                                            </Link>
-                                        </td>
-                                        <td className="whitespace-nowrap px-4 py-2 text-end ">
-                                            <button onClick={() => {
-                                                handleDelete(`${it?.id}`)
-                                            }} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                                <DeleteIcon />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell sx={{ width: '100px' }}>condition</StyledTableCell>
+                                <StyledTableCell align="center">img</StyledTableCell>
+                                <StyledTableCell align="left">Title</StyledTableCell>
+                                <StyledTableCell align="left">description</StyledTableCell>
+                                <StyledTableCell align="left">Price</StyledTableCell>
+                                <StyledTableCell align="right">Count</StyledTableCell>
+                                <StyledTableCell align="center">Edit</StyledTableCell>
+                                <StyledTableCell align="center">Delete</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {products?.map((it) => (
+                                <StyledTableRow key={it.id}>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Checkbox
+                                            onChange={(event) => {
+                                                setChecked(event.target.checked);
+                                                handleChange(it)
+                                            }}
+                                            inputProps={{ 'aria-label': 'controlled' }}
+                                            checked={it.condition}
+                                        />
+                                    </StyledTableCell>
+                                    <StyledTableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} component="th" scope="row">
+                                        <Image
+                                            src={it?.image}
+                                            height={70}
+                                            width={70}
+                                            alt='img'
+                                        />
+                                    </StyledTableCell>
+                                    <StyledTableCell align="left">{it.title}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.description}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.price}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.rating.count}</StyledTableCell>
+                                    <StyledTableCell align="left">
+                                        <Link href={`/admin/dashboard/${it.id}`} className=" bg-green-800 hover:bg-green-950 text-white font-bold py-2 px-4 rounded">
+                                            <EditIcon />
+                                        </Link>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="left">
+                                        <button onClick={() => {
+                                            handleDelete(`${it.id}`)
+                                        }} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                            <DeleteIcon />
+                                        </button>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </div>
         </>
     );
