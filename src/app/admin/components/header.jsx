@@ -1,3 +1,4 @@
+'use client'
 import Link from 'next/link';
 import React from 'react';
 
@@ -6,7 +7,7 @@ const Header = () => {
         <>
             <header className="bg-white">
                 <div className="mx-auto flex h-16 max-w-screen-xl items-center gap-8 px-4 sm:px-6 lg:px-8">
-                    <Link  className="block text-teal-600" href="/">
+                    <Link  className="block text-teal-600" href="/admin/dashboard">
                         <span className=" text-indigo-600 font-bold">DashBoard</span>
                     </Link>
 
@@ -14,7 +15,7 @@ const Header = () => {
                         <nav aria-label="Global" className="hidden md:block">
                             <ul className="flex items-center gap-6 text-sm">
                                 <li>
-                                    <Link href={'/additem'} className="text-gray-500 transition hover:text-gray-500/75"> Add Product </Link>
+                                    <Link href={'/admin/additem'} className="text-gray-500 transition hover:text-gray-500/75"> Add Product </Link>
                                 </li>
 
                                 <li>

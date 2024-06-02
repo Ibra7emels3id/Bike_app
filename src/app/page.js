@@ -1,13 +1,13 @@
 'use client'
-import Header from "@/components/header";
 import { FetchProducts } from "@/lib/features/ProductsSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function Home() {
     const dispatch = useAppDispatch()
-    const {products , isLoading , error } = useAppSelector((state)=> state.data)
+    const { products, isLoading, error } = useAppSelector((state) => state.data)
     console.log(products);
 
     useEffect(() => {
@@ -16,7 +16,9 @@ export default function Home() {
 
     return (
         <>
-            
+            <Link href='/admin'>
+                view
+            </Link>
         </>
     )
 }
