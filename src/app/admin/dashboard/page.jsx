@@ -4,12 +4,13 @@ import Header from '../components/header';
 import { useAppDispatch, useAppSelector } from '@/lib/hooks';
 import { DeleteProduct, FetchProducts, handleCondit } from '@/lib/features/ProductsSlice';
 import { Checkbox, Chip, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
 import Image from 'next/image';
-import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
+import { useUser } from '@clerk/nextjs';
 
 // import Table ui
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -18,6 +19,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+
 
 
 const Page = () => {
@@ -27,8 +36,17 @@ const Page = () => {
     const { products, isLoading, error } = useAppSelector((state) => state.data)
 
     // handle Delete items
+    const [open, setOpen] = React.useState(false);
+    const handleClickOpen = (id) => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
     const handleDelete = (id) => {
         dispatch(DeleteProduct(id))
+        setOpen(false);
     };
 
     // Handle condition
@@ -77,25 +95,29 @@ const Page = () => {
         },
     }));
 
+    // handle User
+    const { user } = useUser()
+
     return (
         <>
             <Header />
-            <div className="overflow-x-auto w-[90%] m-auto mt-32">
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+            <div className="overflow-x-auto w-[80%] m-auto mt-32">
+                {user && <TableContainer component={Paper}>
+                    <Table sx={{ width: 1200 }} className='flex items-center justify-center' aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell sx={{ width: '100px' }}>condition</StyledTableCell>
                                 <StyledTableCell align="center">img</StyledTableCell>
                                 <StyledTableCell align="left">Title</StyledTableCell>
-                                <StyledTableCell align="left">description</StyledTableCell>
+                                <StyledTableCell align="left w-[300px]">description</StyledTableCell>
                                 <StyledTableCell align="left">Price</StyledTableCell>
                                 <StyledTableCell align="right">Count</StyledTableCell>
+                                <StyledTableCell align="center">View</StyledTableCell>
                                 <StyledTableCell align="center">Edit</StyledTableCell>
                                 <StyledTableCell align="center">Delete</StyledTableCell>
                             </TableRow>
                         </TableHead>
-                        <TableBody>
+                        <TableBody sx={{ width: '100%' }}>
                             {products?.map((it) => (
                                 <StyledTableRow key={it.id}>
                                     <StyledTableCell component="th" scope="row">
@@ -108,35 +130,63 @@ const Page = () => {
                                             checked={it.condition}
                                         />
                                     </StyledTableCell>
-                                    <StyledTableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} component="th" scope="row">
+                                    <StyledTableCell sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '110px' }} >
                                         <Image
                                             src={it?.image}
-                                            height={70}
-                                            width={70}
+                                            height={130}
+                                            width={130}
                                             alt='img'
                                         />
                                     </StyledTableCell>
                                     <StyledTableCell align="left">{it.title}</StyledTableCell>
                                     <StyledTableCell align="left">{it.description}</StyledTableCell>
-                                    <StyledTableCell align="left">{it.price}</StyledTableCell>
+                                    <StyledTableCell align="left">${it.price}</StyledTableCell>
                                     <StyledTableCell align="left">{it.rating.count}</StyledTableCell>
+                                    <StyledTableCell align="left">
+                                        <Link href={`/admin/dashboard/${it.id}`} className=" bg-sky-800 hover:bg-sky-950 text-white font-bold py-2 px-4 rounded">
+                                            <VisibilityIcon />
+                                        </Link>
+                                    </StyledTableCell>
                                     <StyledTableCell align="left">
                                         <Link href={`/admin/dashboard/${it.id}`} className=" bg-green-800 hover:bg-green-950 text-white font-bold py-2 px-4 rounded">
                                             <EditIcon />
                                         </Link>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
-                                        <button onClick={() => {
-                                            handleDelete(`${it.id}`)
-                                        }} className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
-                                            <DeleteIcon />
-                                        </button>
+                                        <React.Fragment>
+                                            <Button variant="outlined" onClick={handleClickOpen}>
+                                                <DeleteIcon  />
+                                            </Button>
+                                            <Dialog
+                                                open={open}
+                                                onClose={handleClose}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                            >
+                                                <DialogTitle id="alert-dialog-title">
+                                                    {"Delete Product ?"}
+                                                </DialogTitle>
+                                                <DialogContent>
+                                                    <DialogContentText id="alert-dialog-description">
+                                                        Do you Remove item? <span className=' text-red-950'>${it.title}?</span>
+                                                    </DialogContentText>
+                                                </DialogContent>
+                                                <DialogActions>
+                                                    <Button onClick={handleClose}>cancel</Button>
+                                                    <Button onClick={() => {
+                                                        handleDelete(`${it.id}`)
+                                                    }} autoFocus>
+                                                        Confirm
+                                                    </Button>
+                                                </DialogActions>
+                                            </Dialog>
+                                        </React.Fragment>
                                     </StyledTableCell>
                                 </StyledTableRow>
                             ))}
                         </TableBody>
                     </Table>
-                </TableContainer>
+                </TableContainer>}
             </div>
         </>
     );

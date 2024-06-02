@@ -16,7 +16,7 @@ const Page = ({ params }) => {
         description: '',
         image: '',
         category: '',
-        condition: false,
+        condition: '',
         rating: {
             rate: '',
             count: ''
@@ -31,6 +31,7 @@ const Page = ({ params }) => {
             title: ItemApi.title,
             description: ItemApi.description,
             image: ItemApi.image,
+            condition: ItemApi.condition,
             category: ItemApi.category
             , price: ItemApi.price,
             rating: {
@@ -39,7 +40,6 @@ const Page = ({ params }) => {
                 rate: ItemApi.rating.rate
             }
         })
-        console.log(ItemApi);
     }
 
     useEffect(() => {
