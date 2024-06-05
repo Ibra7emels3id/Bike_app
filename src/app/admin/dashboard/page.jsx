@@ -37,7 +37,7 @@ const Page = () => {
 
     // handle Delete items
     const [open, setOpen] = React.useState(false);
-    const handleClickOpen = (id) => {
+    const handleClickOpen = () => {
         setOpen(true);
     };
 
@@ -139,7 +139,7 @@ const Page = () => {
                                         />
                                     </StyledTableCell>
                                     <StyledTableCell align="left">{it.title}</StyledTableCell>
-                                    <StyledTableCell align="left">{it.description}</StyledTableCell>
+                                    <StyledTableCell align="left">{it.description.slice(0 , 100)}...</StyledTableCell>
                                     <StyledTableCell align="left">${it.price}</StyledTableCell>
                                     <StyledTableCell align="left">{it.rating.count}</StyledTableCell>
                                     <StyledTableCell align="left">

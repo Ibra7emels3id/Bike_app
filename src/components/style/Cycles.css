@@ -1,0 +1,22 @@
+.bikeImg::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -10%;
+    background-color:#1e293b ;
+    width: 105%;
+    height: 120%;
+    opacity: 1;
+    z-index: -1;
+    clip-path: polygon(0 0 , 75% 8% , 75% 80%, 0% 100%);
+}
+.Cycles .text h5::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 160px;
+    height: 4px;
+    background-color: #1e293b;
+
+}

@@ -8,6 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const additems = () => {
     const [Data, setData] = useState({
@@ -30,6 +32,10 @@ const additems = () => {
         dispatch(AddProduct(Data)).then(() => {
             Navigate.push('/admin/dashboard')
         })
+        toast.success("Success Notification !", {
+            position: "top-center"
+        });
+        <ToastContainer />
     }
 
     // handle select items
@@ -171,13 +177,9 @@ const additems = () => {
                                     />
                                 </div>
                             </div>
-
-
-
-
-
                             <button type="submit" className="block w-full rounded-lg bg-indigo-600 px-5 py-3 text-sm font-medium text-white">
                                 submit
+
                             </button>
                         </form>
                     </div>

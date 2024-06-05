@@ -1,12 +1,13 @@
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
+
 // Get All Data Api 
 export const FetchProducts = createAsyncThunk('FetchProducts', async () => {
     try {
         const data = await fetch('http://localhost:9000/posts')
         const products = await data.json()
         return products
-    }catch (err) {
+    } catch (err) {
         console.error(err)
     }
 })
