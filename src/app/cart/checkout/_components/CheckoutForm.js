@@ -2,7 +2,7 @@
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
-import { useUser } from '@clerk/nextjs';
+
 import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
 import Link from 'next/link';
@@ -15,7 +15,6 @@ import { useSearchParams } from 'next/navigation';
 const CheckoutForm = () => {
     const dispatch = useAppDispatch();
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
-    const { user } = useUser()
     const searchparams = useSearchParams()
 
     const SendDataCartToAdmin = async () => {
@@ -26,9 +25,9 @@ const CheckoutForm = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: user?.username,
-                    email: user?.emailAddresses[0].emailAddress,
-                    name: user?.fullName,
+                    // username: user?.username,
+                    // email: user?.emailAddresses[0].emailAddress,
+                    // name: user?.fullName,
                     type: 'cart',
                     amount: Number(searchparams.get('amount')),
                     Date:{
