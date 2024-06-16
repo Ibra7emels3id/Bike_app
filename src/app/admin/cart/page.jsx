@@ -2,7 +2,6 @@
 import Header from '../components/header';
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks';
-import { useUser } from '@clerk/nextjs';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import CartTrast from '../components/CartTrast'
@@ -12,7 +11,7 @@ const Page = () => {
     const dispatch = useAppDispatch()
     const { GetTransactionAdmin } = useAppSelector((state) => state.data)
 
-    const Alltransaction = GetTransactionAdmin.map((item) => (
+    const Alltransaction = GetTransactionAdmin?.map((item) => (
         <CartTrast key={item.id} item={item} />
     ))
 

@@ -1,8 +1,8 @@
 'use client'
 import React, { use, useEffect, useState } from 'react';
 import Header from '../components/header';
-import { useAppDispatch } from '@/lib/hooks';
-import { AddProduct } from '@/lib/features/ProductsSlice';
+import { useAppDispatch } from '../../../lib/hooks';
+import { AddProduct } from '../../../lib/features/ProductsSlice';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';

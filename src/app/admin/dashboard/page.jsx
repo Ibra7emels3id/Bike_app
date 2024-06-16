@@ -6,7 +6,7 @@ import { DeleteProduct, FetchProducts, handleCondit } from '../../../lib/feature
 import { Checkbox, Chip, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useUser } from '@clerk/nextjs';
+
 
 // import Table ui
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -96,13 +96,13 @@ const Page = () => {
     }));
 
     // handle User
-    const { user } = useUser()
+    // const { user } = useUser()
 
     return (
         <>
             <Header />
             <div className="overflow-x-auto w-[80%] m-auto mt-32">
-                {user && <TableContainer component={Paper}>
+                <TableContainer component={Paper}>
                     <Table sx={{ width: 1200 }} className='flex items-center justify-center' aria-label="customized table">
                         <TableHead>
                             <TableRow>
@@ -186,7 +186,7 @@ const Page = () => {
                             ))}
                         </TableBody>
                     </Table>
-                </TableContainer>}
+                </TableContainer>
             </div>
         </>
     );
