@@ -4,7 +4,8 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import CheckoutForm from './_components/CheckoutForm';
 import Header from '../../../components/Header';
-import { useSearchParams } from 'next/navigation';
+// import { useSearchParams } from 'next/navigation';
+// Number(searchparams.get('amount'))
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
@@ -13,7 +14,7 @@ const Page = () => {
     const options = {
         mode: 'payment',
         currency: 'usd',
-        amount: Number(searchparams.get('amount'))
+        amount: 1000
     };
 
     return (
