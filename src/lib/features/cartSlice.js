@@ -4,7 +4,8 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 
 const initialState = {
-    cart: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
+    // cart: localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : [],
+    cart: typeof window !== "undefined" ? localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [] : null,
     isLoading: false,
     error: null,
     cartQuantity: 0,
