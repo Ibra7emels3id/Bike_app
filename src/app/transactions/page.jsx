@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
 import ProductsSlice, { FetchGettransaction } from '../../lib/features/ProductsSlice';
-import { useUser } from '@clerk/nextjs';
 import CartTrast from '../../components/cartTrast.jsx';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Paper from '@mui/material/Paper';
@@ -13,16 +12,15 @@ import ErrorPage from 'next/error';
 const Page = () => {
     const dispatch = useAppDispatch()
     const { Gettransaction } = useAppSelector((state) => state.data)
-    const { user } = useUser()
     // console.log(Gettransaction);
 
 
     // filter Cart of user 
-    const transactions = Gettransaction.filter((it) => {
+    const transactions = Gettransaction?.filter((it) => {
         return it.username == user?.username
     })
 
-    const Alltransaction = transactions.map((item) => (
+    const Alltransaction = transactions?.map((item) => (
         <CartTrast key={item.id} item={item} />
     ))
 
@@ -32,7 +30,7 @@ const Page = () => {
     }, [])
 
     return (
-        user ? <>
+         <>
             <Header />
             <div className="transactions pt-32 w-[90%] m-auto">
                 <TableContainer component={Paper}>
@@ -51,7 +49,8 @@ const Page = () => {
                     </Table>
                 </TableContainer>
             </div>
-        </> :  <ErrorPage statusCode={404} />
+        </> 
+        // :  <ErrorPage statusCode={404} />
     );
 }
 

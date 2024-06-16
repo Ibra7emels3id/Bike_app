@@ -3,7 +3,6 @@ import Header from '../../components/Header';
 import Item from '../../components/item';
 import { FetchProducts } from '../../lib/features/ProductsSlice';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
-import { useUser } from '@clerk/nextjs';
 import React, { useEffect } from 'react';
 
 // import ui 
@@ -13,8 +12,7 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 const Page = () => {
     const dispatch = useAppDispatch()
     const { products } = useAppSelector((state) => state.data)
-    const [alignment, setAlignment] = React.useState('All');
-    const { user } = useUser()
+
 
     // handle Change
     const handleChange = (event) => {

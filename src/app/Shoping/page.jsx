@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import { useAppDispatch, useAppSelector } from '../../lib/hooks';
-import { useUser } from '@clerk/nextjs';
 import { FetchProducts } from '../../lib/features/ProductsSlice';
 import Item from '../../components/item';
 
@@ -10,7 +9,6 @@ const Page = () => {
     const dispatch = useAppDispatch()
     const { products } = useAppSelector((state) => state.data)
     const [alignment, setAlignment] = React.useState('All');
-    const { user } = useUser()
 
     // handle select items
     const handleChange = () =>{

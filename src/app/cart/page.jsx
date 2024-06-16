@@ -5,11 +5,11 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/Cart";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { getTitle, removeFromCart } from "../../lib/features/cartSlice";
-import { useUser } from "@clerk/nextjs";
+// import { useUser } from "@clerk/nextjs";
 
 
 const Page = () => {
-    const { user } = useUser()
+    // const { user } = useUser()
     const [Free, setFree] = useState(8)
     const [Discount, setDiscount] = useState(20)
     const dispatch = useAppDispatch()
@@ -26,7 +26,7 @@ const Page = () => {
 
     return (
         <>
-            <Header />
+            {/* <Header />
             <div className="checkout pt-14">
                 {user ? <section>
                     {cart.length === 0 ? <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
@@ -106,7 +106,7 @@ const Page = () => {
                         <p className=" text-4xl text-green-950">Please Login</p>
                         <Link href={'/login'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">Login</Link>
                     </div>}
-            </div>
+            </div> */}
         </>
     );
 };
