@@ -1,8 +1,8 @@
 'use client'
 import React, { useEffect } from 'react';
 import Header from '../components/header';
-import { useAppDispatch, useAppSelector } from '@/lib/hooks';
-import { DeleteProduct, FetchProducts, handleCondit } from '@/lib/features/ProductsSlice';
+import { useAppDispatch, useAppSelector } from '../../../lib/hooks';
+import { DeleteProduct, FetchProducts, handleCondit } from '../../../lib/features/ProductsSlice';
 import { Checkbox, Chip, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';

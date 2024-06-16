@@ -41,7 +41,6 @@ export const AddProduct = createAsyncThunk('AddProduct', async (product) => {
 })
 
 // Handle Edite Product
-
 export const EditeProduct = createAsyncThunk('EditeProduct', async (Data) => {
     try {
         await fetch(`http://localhost:9000/posts/${Data.id}`, {
@@ -56,11 +55,35 @@ export const EditeProduct = createAsyncThunk('EditeProduct', async (Data) => {
         console.error(err)
     }
 })
+// get All Cart transactions Users
+export const FetchGettransaction = createAsyncThunk('FetchGettransaction', async () => {
+    try {
+        const data = await fetch('http://localhost:9000/cart')
+        const transactions = await data.json()
+        return transactions
+    } catch (err) {
+        console.error(err)
+    }
+})
+
+// get All Cart transactions Admin
+export const FetchGettransactionAdmin = createAsyncThunk('FetchGettransactionAdmin', async () => {
+    try {
+        const data = await fetch('http://localhost:9000/cart')
+        const transactions = await data.json()
+        return transactions
+    } catch (err) {
+        console.error(err)
+    }
+})
+
 
 const initialState = {
     products: [],
     isLoading: false,
     error: null,
+    Gettransaction: [],
+    GetTransactionAdmin: [],
 }
 
 
@@ -113,6 +136,27 @@ const productSlice = createSlice({
             state.products = state.products.map(product => product.id === action.payload.id ? action.payload : product)
         })
         builder.addCase(EditeProduct.rejected, (state, action) => {
+            state.isLoading = false
+            state.error = action.error.message
+        })
+        // get All Care transactions
+        builder.addCase(FetchGettransaction.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(FetchGettransaction.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.Gettransaction = action.payload
+        })
+        // get All Cart transactions Admin
+        builder.addCase(FetchGettransactionAdmin.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(FetchGettransactionAdmin.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.GetTransactionAdmin = action.payload
+        })
+        // get All Cart transactions Admin
+        builder.addCase(FetchGettransactionAdmin.rejected, (state, action) => {
             state.isLoading = false
             state.error = action.error.message
         })

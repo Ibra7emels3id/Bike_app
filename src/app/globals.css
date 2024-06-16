@@ -2,4 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {}
+
+/* 
+.LinkTransactions{
+    display: none;
+    opacity: 0;
+}
+.LinkUser:hover.LinkTransactions{
+    opacity: 1 !important;
+    display: flex !important;
+} */

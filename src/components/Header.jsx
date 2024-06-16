@@ -1,10 +1,16 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import CartCount from './CartCount';
+import { useAppDispatch, useAppSelector } from '../lib/hooks';
+import { ShowAlert, getTitle } from '../lib/features/cartSlice';
+import AlertDAtaUser from './AlertDAtaUser.jsx'
 
 const Header = () => {
+    const dispatch = useAppDispatch()
+    const { ShowAlerttran } = useAppSelector((state) => state.cart)
+
     return (
         <>
             <header className="bg-white fixed w-full z-30">
@@ -28,7 +34,7 @@ const Header = () => {
                                         <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> About </Link>
                                     </li>
                                     <li>
-                                        <Link className="text-gray-500 transition hover:text-gray-500/75" href="/shop"> shop </Link>
+                                        <Link className="text-gray-500 transition hover:text-gray-500/75" href="/Shoping"> shop </Link>
                                     </li>
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> History </a>
@@ -37,27 +43,32 @@ const Header = () => {
                                         <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </a>
                                     </li>
                                     <li>
-                                        <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> Projects </a>
+                                        <button onClick={() => {
+                                            dispatch(ShowAlert())
+                                        }} className="text-gray-500 transition hover:text-gray-500/75" > Transaction </button>
+                                        <span className={`${ShowAlerttran === false ? 'hidden opacity-0' : 'flex opacity-100'}`}><AlertDAtaUser /></span>
                                     </li>
-                                    <li>
-                                        <Link className="text-gray-500 transition hover:text-gray-500/75" href="#">
-                                            <CartCount />
+                                    <li className='LinkUser'>
+                                        <Link className="text-gray-500 transition hover:text-gray-500/75" href="/cart">
+                                            <span className=''><CartCount /></span>
                                         </Link>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                         <div className="flex items-center gap-4">
+                            {/* <UserButton /> */}
                             <div className="sm:flex sm:gap-4">
-                                <a className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="#" >
+                                <Link className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="login" >
                                     Login
-                                </a>
+                                </Link>
                                 <div className="hidden sm:flex">
-                                    <a className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600" href="#" >
+                                    <Link className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600" href="/register" >
                                         Register
-                                    </a>
+                                    </Link>
                                 </div>
                             </div>
+
                             <div className="block md:hidden">
                                 <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                                     <svg
