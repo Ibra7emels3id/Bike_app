@@ -1,4 +1,3 @@
-'use client'
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
