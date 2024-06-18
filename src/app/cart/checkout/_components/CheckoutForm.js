@@ -6,13 +6,11 @@ import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { useUser } from '@clerk/nextjs';
 
 
 
 
 const CheckoutForm = () => {
-    const {user} = useUser()
     const dispatch = useAppDispatch();
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
     const searchparams = useSearchParams()
@@ -25,9 +23,9 @@ const CheckoutForm = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    username: user?.username,
-                    email: user?.emailAddresses[0].emailAddress,
-                    name: user?.fullName,
+                    // username: user?.username,
+                    // email: user?.emailAddresses[0].emailAddress,
+                    // name: user?.fullName,
                     type: 'cart',
                     amount: Number(searchparams.get('amount')),
                     Date:{
