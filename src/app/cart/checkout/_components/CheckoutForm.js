@@ -6,11 +6,13 @@ import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { useUser } from '@clerk/nextjs';
 
 
 
 
 const CheckoutForm = () => {
+    const {user} = useUser()
     const dispatch = useAppDispatch();
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
     const searchparams = useSearchParams()

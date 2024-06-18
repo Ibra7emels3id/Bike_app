@@ -6,8 +6,11 @@ import CartCount from './CartCount';
 import { useAppDispatch, useAppSelector } from '../lib/hooks';
 import { ShowAlert, getTitle } from '../lib/features/cartSlice';
 import AlertDAtaUser from './AlertDAtaUser.jsx'
+import { UserButton, useUser } from '@clerk/nextjs';
+
 
 const Header = () => {
+    const { user } = useUser()
     const dispatch = useAppDispatch()
     const { ShowAlerttran } = useAppSelector((state) => state.cart)
 
@@ -42,12 +45,14 @@ const Header = () => {
                                     <li>
                                         <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </a>
                                     </li>
-                                    <li>
-                                        <button onClick={() => {
-                                            dispatch(ShowAlert())
-                                        }} className="text-gray-500 transition hover:text-gray-500/75" > Transaction </button>
-                                        <span className={`${ShowAlerttran === false ? 'hidden opacity-0' : 'flex opacity-100'}`}><AlertDAtaUser /></span>
-                                    </li>
+                                    {user &&
+                                        <li>
+                                            <button onClick={() => {
+                                                dispatch(ShowAlert())
+                                            }} className="text-gray-500 transition hover:text-gray-500/75" > Transaction </button>
+                                            <span className={`${ShowAlerttran === false ? 'hidden opacity-0' : 'flex opacity-100'}`}><AlertDAtaUser /></span>
+                                        </li>
+                                    }
                                     <li className='LinkUser'>
                                         <Link className="text-gray-500 transition hover:text-gray-500/75" href="/cart">
                                             <span className=''><CartCount /></span>
@@ -57,17 +62,18 @@ const Header = () => {
                             </nav>
                         </div>
                         <div className="flex items-center gap-4">
-                            {/* <UserButton /> */}
-                            <div className="sm:flex sm:gap-4">
-                                <Link className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="/sign-in" >
-                                    Login
-                                </Link>
-                                <div className="hidden sm:flex">
-                                    <Link className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600" href="/sign-up" >
-                                        Register
+                            {user ? <UserButton /> :
+                                <div className="sm:flex sm:gap-4">
+                                    <Link className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="/sign-in" >
+                                        Login
                                     </Link>
+                                    <div className="hidden sm:flex">
+                                        <Link className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600" href="/sign-up" >
+                                            Register
+                                        </Link>
+                                    </div>
                                 </div>
-                            </div>
+                            }
                             <div className="block md:hidden">
                                 <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                                     <svg

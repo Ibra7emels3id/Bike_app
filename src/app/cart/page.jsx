@@ -5,11 +5,12 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/Cart";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { getTitle, removeFromCart } from "../../lib/features/cartSlice";
+import { useUser } from "@clerk/nextjs";
 
 
 
 const Page = () => {
-    // const { user } = useUser()
+    const { user } = useUser()
     const [Free, setFree] = useState(8)
     const [Discount, setDiscount] = useState(20)
     const dispatch = useAppDispatch()
@@ -28,7 +29,7 @@ const Page = () => {
         <>
             <Header />
             <div className="checkout pt-14">
-                <section>
+                {user ? <section>
                     {cart?.length === 0 ? <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
                         <p className=" text-4xl text-green-950">Please shop Cart</p>
                         <Link href={'/shop'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">shop</Link>
@@ -45,7 +46,7 @@ const Page = () => {
                                         {AllCart}
                                     </ul>
                                     <div className="btn mt-10">
-                                        <button onClick={()=>{
+                                        <button onClick={() => {
                                             dispatch(removeFromCart())
                                         }} className=" bg-red-900 py-3 px-8 rounded-xl text-white" >Clear Items</button>
                                     </div>
@@ -104,8 +105,9 @@ const Page = () => {
                 </section> :
                     <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
                         <p className=" text-4xl text-green-950">Please Login</p>
-                        <Link href={'/login'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">Login</Link>
+                        <Link href={'/sign-in'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">Login</Link>
                     </div>
+                }
             </div>
         </>
     );
