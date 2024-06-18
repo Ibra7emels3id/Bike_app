@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/Cart";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { getTitle, removeFromCart } from "../../lib/features/cartSlice";
-import { useUser } from "@clerk/nextjs";
+
 
 
 const Page = () => {

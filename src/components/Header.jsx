@@ -59,16 +59,15 @@ const Header = () => {
                         <div className="flex items-center gap-4">
                             {/* <UserButton /> */}
                             <div className="sm:flex sm:gap-4">
-                                <Link className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="login" >
+                                <Link className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="/sign-in" >
                                     Login
                                 </Link>
                                 <div className="hidden sm:flex">
-                                    <Link className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600" href="/register" >
+                                    <Link className="rounded-md bg-gray-100 px-5 py-2.5 text-sm font-medium text-red-600" href="/sign-up" >
                                         Register
                                     </Link>
                                 </div>
                             </div>
-
                             <div className="block md:hidden">
                                 <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
                                     <svg
