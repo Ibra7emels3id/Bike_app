@@ -29,7 +29,7 @@ const Page = () => {
             <Header />
             <div className="checkout pt-14">
                 <section>
-                    {cart.length === 0 ? <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
+                    {cart?.length === 0 ? <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
                         <p className=" text-4xl text-green-950">Please shop Cart</p>
                         <Link href={'/shop'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">shop</Link>
                     </div> :
