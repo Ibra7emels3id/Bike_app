@@ -87,7 +87,7 @@ const CheckoutForm = () => {
             method: 'POST',
             body: JSON.stringify({
                 // amount: Number(searchparams.get('amount'))
-                amount: 100
+                amount: 1000
             })
         })
         const clientSecret = await res.json()

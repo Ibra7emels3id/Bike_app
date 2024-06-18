@@ -15,7 +15,7 @@ const Page = () => {
         mode: 'payment',
         currency: 'usd',
         // amount: Number(searchparams.get('amount'))
-        amount: 100
+        amount: 1000
     };
 
     return (
