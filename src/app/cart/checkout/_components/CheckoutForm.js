@@ -5,8 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
 import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-
+// import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/router';
 
 
 
@@ -14,7 +14,7 @@ import { useSearchParams } from 'next/navigation';
 const CheckoutForm = () => {
     const dispatch = useAppDispatch();
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
-    const searchparams = useSearchParams()
+    // const searchparams = useSearchParams()
 
     const SendDataCartToAdmin = async () => {
         try {

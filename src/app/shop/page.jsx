@@ -143,7 +143,7 @@ const Page = () => {
                                 <ToggleButtonGroup
                                     sx={{ display: 'flex', flexDirection: 'column', gap: '5px' }}
                                     color="primary"
-                                    value={alignment}
+                                    // value={alignment}
                                     exclusive
                                     onChange={()=>{
                                         handleChange(event)
