@@ -6,12 +6,9 @@ import { FetchGettransaction } from '../../lib/features/ProductsSlice';
 import CartTrast from '../../components/cartTrast.jsx';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Paper from '@mui/material/Paper';
-import ErrorPage from 'next/error';
-import { useUser } from '@clerk/nextjs';
 
 
 const Page = () => {
-    const { user } = useUser()
     const dispatch = useAppDispatch()
     const { Gettransaction } = useAppSelector((state) => state.data)
 
