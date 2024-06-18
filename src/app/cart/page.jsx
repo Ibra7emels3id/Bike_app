@@ -102,7 +102,7 @@ const Page = () => {
                             </div>
                         </div>
                     }
-                </section> :
+                </section> || [] :
                     <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
                         <p className=" text-4xl text-green-950">Please Login</p>
                         <Link href={'/sign-in'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">Login</Link>
