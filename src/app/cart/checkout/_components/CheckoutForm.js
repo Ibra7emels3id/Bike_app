@@ -88,8 +88,7 @@ const CheckoutForm = () => {
         const res = await fetch('/api/create-intent', {
             method: 'POST',
             body: JSON.stringify({
-                // amount: Number(searchparams.get('amount'))
-                amount: 1000
+                amount: Number(searchparams.get('amount'))
             })
         })
         const clientSecret = await res.json()
@@ -100,7 +99,7 @@ const CheckoutForm = () => {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: "http://localhost:3000/cart/checkout/sucsses",
+                return_url: `${process.env.NEXT_PUBLIC_URL}/cart/checkout/sucsses`,
             },
         })
         setLoading(false);
