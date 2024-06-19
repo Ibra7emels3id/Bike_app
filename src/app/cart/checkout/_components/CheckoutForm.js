@@ -37,7 +37,7 @@ const CheckoutForm = () => {
                 })
             })
             dispatch(removeFromCart())
-            localStorage.removeItem()
+            localStorage.removeItem('cart')
 
             if (!res.ok) {
                 const errorData = await res.json();
