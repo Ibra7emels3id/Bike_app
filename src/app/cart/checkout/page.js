@@ -30,7 +30,7 @@ const Page = () => {
 const SuspendedCheckoutPage = () => {
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <CheckoutPage />
+            <Page />
         </Suspense>
     );
 };
