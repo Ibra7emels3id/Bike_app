@@ -90,8 +90,7 @@ const CheckoutForm = () => {
         const res = await fetch('/api/create-intent', {
             method: 'POST',
             body: JSON.stringify({
-                // amount: Number(searchparams.get('amount'))
-                amount: 1000
+                amount: Number(searchparams.get('amount'))
             })
         })
         const clientSecret = await res.json()
