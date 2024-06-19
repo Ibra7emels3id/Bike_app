@@ -27,7 +27,8 @@ const CheckoutForm = () => {
                     // email: user?.emailAddresses[0].emailAddress,
                     // name: user?.fullName,
                     type: 'cart',
-                    amount: Number(searchparams.get('amount')),
+                    // amount: Number(searchparams.get('amount')),
+                    amount: 1000,
                     Date: {
                         Date: new Date().toLocaleDateString(),
                         Time: new Date().toLocaleTimeString(),
