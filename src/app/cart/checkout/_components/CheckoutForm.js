@@ -1,12 +1,12 @@
-// 'use client'
+import { Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
 
 import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+
 
 
 
@@ -123,15 +123,17 @@ const CheckoutForm = () => {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div className='flex flex-col pt-44 w-[40%] m-auto '>
-                {loading ? <div className=' fixed z-50 bg-opacity-60 backdrop-blur-sm left-0 top-0 h-full w-full flex items-center justify-center'>
-                    <Loader />
-                </div> : null}
-                <PaymentElement />
-                <button className=' bg-teal-800 py-4 mt-8 text-white'>Submit</button>
-            </div>
-        </form>
+        <Suspense>
+            <form onSubmit={handleSubmit}>
+                <div className='flex flex-col pt-44 w-[40%] m-auto '>
+                    {loading ? <div className=' fixed z-50 bg-opacity-60 backdrop-blur-sm left-0 top-0 h-full w-full flex items-center justify-center'>
+                        <Loader />
+                    </div> : null}
+                    <PaymentElement />
+                    <button className=' bg-teal-800 py-4 mt-8 text-white'>Submit</button>
+                </div>
+            </form>
+        </Suspense>
     );
 };
 
