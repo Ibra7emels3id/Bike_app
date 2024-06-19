@@ -42,12 +42,13 @@ const CheckoutForm = () => {
                 throw new Error(`HTTP error! status: ${res.status}, message: ${JSON.stringify(errorData)}`);
             }
             const data = await res.json()
+            console.log(data);
+            dispatch(removeFromCart())
+            localStorage.removeItem('cart')
 
         } catch (error) {
             console.error('Error adding data to cart:', error);
         }
-        dispatch(removeFromCart())
-        localStorage.removeItem('cart')
     }
 
     const stripe = useStripe();
