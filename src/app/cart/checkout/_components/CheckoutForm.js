@@ -42,6 +42,7 @@ const CheckoutForm = () => {
             }
             const data = await res.json()
             dispatch(removeFromCart())
+
         } catch (error) {
             console.error('Error adding data to cart:', error);
         }
@@ -98,7 +99,7 @@ const CheckoutForm = () => {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: `${process.env.NEXT_PUBLIC_URL}/cart/checkout/sucsses`,
+                return_url: `https://bike-app-oic6.vercel.app/cart/checkout/sucsses`,
             },
         })
         setLoading(false);
