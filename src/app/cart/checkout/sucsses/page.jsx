@@ -3,10 +3,6 @@ import Link from "next/link"
 export default function Component() {
     return (
         <>
-            <div className="flex flex-col gap-14 items-center justify-center h-[80vh] ">
-                <p className=" text-4xl text-green-950 text-center">No Data id <br />Please shop Cart</p>
-                <Link href={'/shop'} className=" bg-red-900 py-5 px-16 text-white rounded-xl">shop</Link>
-            </div> :
             <div className="flex flex-col min-h-screen">
                 <main className="flex flex-col items-center justify-center flex-grow text-center p-4 md:p-6">
                     <CircleCheckIcon className="h-16 w-16 text-green-500" />
