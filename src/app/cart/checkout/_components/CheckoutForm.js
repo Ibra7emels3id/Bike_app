@@ -47,7 +47,6 @@ const CheckoutForm = () => {
             console.error('Error adding data to cart:', error);
         }
     }
-    dispatch(removeFromCart())
 
     const stripe = useStripe();
     const elements = useElements();
