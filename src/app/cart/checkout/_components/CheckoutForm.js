@@ -1,3 +1,4 @@
+// 'use client'
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
@@ -5,15 +6,19 @@ import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
 import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
 import Link from 'next/link';
-// import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 
 
 
 const CheckoutForm = () => {
     const dispatch = useAppDispatch();
+    const [searchparam, setsearchparams] = useState()
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
-    // const searchparams = useSearchParams()
+    const searchparams = useSearchParams()
+
+
+    console.log(searchparam);
 
     const SendDataCartToAdmin = async () => {
         try {
@@ -27,8 +32,8 @@ const CheckoutForm = () => {
                     // email: user?.emailAddresses[0].emailAddress,
                     // name: user?.fullName,
                     type: 'cart',
-                    // amount: Number(searchparams.get('amount')),
-                    amount: 1000,
+                    amount: Number(searchparam.get('amount')),
+                    // amount: 1000,
                     Date: {
                         Date: new Date().toLocaleDateString(),
                         Time: new Date().toLocaleTimeString(),
