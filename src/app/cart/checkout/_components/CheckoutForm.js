@@ -46,6 +46,8 @@ const CheckoutForm = () => {
         } catch (error) {
             console.error('Error adding data to cart:', error);
         }
+        dispatch(removeFromCart())
+        localStorage.removeItem('cart')
     }
 
     const stripe = useStripe();
@@ -82,8 +84,6 @@ const CheckoutForm = () => {
         setLoading(true);
 
         SendDataCartToAdmin()
-        dispatch(removeFromCart())
-        localStorage.removeItem('cart')
 
         const res = await fetch('/api/create-intent', {
             method: 'POST',
