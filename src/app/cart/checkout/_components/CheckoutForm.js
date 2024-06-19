@@ -36,7 +36,7 @@ const CheckoutForm = () => {
                     cart,
                 })
             })
-            dispatch(removeFromCart())
+            
             if (!res.ok) {
                 const errorData = await res.json();
                 throw new Error(`HTTP error! status: ${res.status}, message: ${JSON.stringify(errorData)}`);
@@ -47,7 +47,7 @@ const CheckoutForm = () => {
             console.error('Error adding data to cart:', error);
         }
     }
-
+    dispatch(removeFromCart())
 
     const stripe = useStripe();
     const elements = useElements();
