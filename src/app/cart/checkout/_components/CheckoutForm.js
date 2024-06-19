@@ -119,18 +119,24 @@ const CheckoutForm = () => {
 
 
     return (
-        <Suspense>
-            <form onSubmit={handleSubmit}>
-                <div className='flex flex-col pt-44 w-[40%] m-auto '>
-                    {loading ? <div className=' fixed z-50 bg-opacity-60 backdrop-blur-sm left-0 top-0 h-full w-full flex items-center justify-center'>
-                        <Loader />
-                    </div> : null}
-                    <PaymentElement />
-                    <button className=' bg-teal-800 py-4 mt-8 text-white'>Submit</button>
-                </div>
-            </form>
+        <form onSubmit={handleSubmit}>
+            <div className='flex flex-col pt-44 w-[40%] m-auto '>
+                {loading ? <div className=' fixed z-50 bg-opacity-60 backdrop-blur-sm left-0 top-0 h-full w-full flex items-center justify-center'>
+                    <Loader />
+                </div> : null}
+                <PaymentElement />
+                <button className=' bg-teal-800 py-4 mt-8 text-white'>Submit</button>
+            </div>
+        </form>
+    );
+};
+
+const SuspendedCheckoutForm = () => {
+    return (
+        <Suspense fallback={<div>Loading...</div>}>
+            <CheckoutForm />
         </Suspense>
     );
 };
 
-export default CheckoutForm;
+export default SuspendedCheckoutForm;
