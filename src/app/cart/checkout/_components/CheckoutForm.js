@@ -13,12 +13,8 @@ import Loader from './Loader'
 
 const CheckoutForm = () => {
     const dispatch = useAppDispatch();
-    const [searchparam, setsearchparams] = useState()
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
     const searchparams = useSearchParams()
-
-
-    console.log(searchparam);
 
     const SendDataCartToAdmin = async () => {
         try {
@@ -32,7 +28,7 @@ const CheckoutForm = () => {
                     // email: user?.emailAddresses[0].emailAddress,
                     // name: user?.fullName,
                     type: 'cart',
-                    amount: Number(searchparam.get('amount')),
+                    amount: Number(searchparams.get('amount')),
                     // amount: 1000,
                     Date: {
                         Date: new Date().toLocaleDateString(),
