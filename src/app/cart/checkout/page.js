@@ -10,7 +10,7 @@ import { useSearchParams } from 'next/navigation';
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const Page = () => {
-    // const searchparams = useSearchParams()
+    const searchparams = useSearchParams()
     const options = {
         mode: 'payment',
         currency: 'usd',
