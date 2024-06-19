@@ -36,7 +36,9 @@ const CheckoutForm = () => {
                     cart,
                 })
             })
-            
+            dispatch(removeFromCart())
+            localStorage.removeItem()
+
             if (!res.ok) {
                 const errorData = await res.json();
                 throw new Error(`HTTP error! status: ${res.status}, message: ${JSON.stringify(errorData)}`);
