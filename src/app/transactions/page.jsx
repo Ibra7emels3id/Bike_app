@@ -7,7 +7,7 @@ import CartTrast from '../../components/cartTrast.jsx';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import { useSession } from 'next-auth/react';
-import ErrorPage from 'next'
+import ErrorPage from 'next/error';
 
 const Page = () => {
     const { data: session } = useSession()
