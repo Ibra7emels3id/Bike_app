@@ -6,8 +6,10 @@ import CartCount from './CartCount';
 import { useAppDispatch, useAppSelector } from '../lib/hooks';
 import { ShowAlert, getTitle } from '../lib/features/cartSlice';
 import AlertDAtaUser from './AlertDAtaUser.jsx'
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Avatar from './Avatars'
+import LogoutIcon from '@mui/icons-material/Logout';
+import { Button, IconButton } from '@mui/material';
 
 
 
@@ -66,7 +68,12 @@ const Header = () => {
                         </div>
                         <div className="flex items-center gap-4">
                             {user ?
-                                <Avatar />
+                                <>
+                                    <Avatar />
+                                    <IconButton onClick={()=> signOut() }  aria-label="delete" size="large">
+                                        <LogoutIcon />
+                                    </IconButton>
+                                </>
                                 :
                                 <div className="sm:flex sm:gap-4">
                                     <Link className="rounded-md bg-red-800 px-5 py-2.5 text-sm font-medium text-white shadow" href="/sign-in" >
