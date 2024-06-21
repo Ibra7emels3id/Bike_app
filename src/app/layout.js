@@ -9,16 +9,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Analytics } from '@vercel/analytics/react';
 import AuthProvider from './provider/AuthProvider.js'
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 
 export default function RootLayout({ children }) {
+    const initialOptions = {
+        clientId: "AU76WoxpKyDmAa4goZkbeKDExVI5BriJmzGx99ux5tjhWqwQ5Px6MJftrGnoQgt94diTJjhUlhfM5QuX",
+        currency: "USD",
+        intent: "capture",
+    };
     return (
         <html lang="en">
             <body className={inter.className}>
-                <Provider store={store}>
-                    <AuthProvider>
-                        {children}
-                    </AuthProvider>
+                <Provider store={store} >
+                    <PayPalScriptProvider options={initialOptions}>
+                        <AuthProvider>
+                            {children}
+                        </AuthProvider>
+                    </PayPalScriptProvider>
                 </Provider>
             </body>
         </html>

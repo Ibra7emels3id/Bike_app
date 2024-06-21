@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import Cart from "../../components/Cart";
 import { useAppDispatch, useAppSelector } from "../../lib/hooks";
 import { getTitle, removeFromCart } from "../../lib/features/cartSlice";
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { FaCcVisa } from "react-icons/fa";
 
 
 
@@ -89,10 +91,11 @@ const Page = () => {
                                                     </p>
                                                 </span>
                                             </div>
-                                            <div className="flex justify-end">
-                                                <Link href={`/cart/checkout?amount=${Math.round(CartTitle + Free - (CartTitle * Discount / 100))}`} className="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600" >
-                                                    Checkout
+                                            <div className="flex flex-col gap-5 justify-end">
+                                                <Link href={`/cart/checkout?amount=${Math.round(CartTitle + Free - (CartTitle * Discount / 100))}`} className="rounded bg-gray-700 flex items-center justify-center gap-4 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600" >
+                                                    Checkout Visa <FaCcVisa className=" text-2xl" />
                                                 </Link>
+                                                <PayPalButtons />
                                             </div>
                                         </div>
                                     </div>
