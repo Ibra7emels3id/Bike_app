@@ -8,6 +8,10 @@ const handler = NextAuth({
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET
+        }),
+        GithubProvider({
+            clientId: process.env.GITHUB_CLINT_ID,
+            clientSecret: process.env.GITHUB_SECRET_KEY
         })
     ],
     secret: process.env.SIGNING_PRIVATE_KEY
