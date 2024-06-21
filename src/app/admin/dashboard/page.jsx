@@ -103,7 +103,7 @@ const Page = () => {
             <Header />
             <div className="overflow-x-auto w-[80%] m-auto mt-32">
                 <TableContainer component={Paper}>
-                    <Table sx={{ width: 1200 }} className='flex items-center justify-center' aria-label="customized table">
+                    <Table sx={{ width: 1200 }}  aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell sx={{ width: '100px' }}>condition</StyledTableCell>

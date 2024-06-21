@@ -65,11 +65,11 @@ const Page = () => {
                                                 </div>
                                                 <div className="flex justify-between">
                                                     <dt>Discount</dt>
-                                                    <dd>-£{Discount}</dd>
+                                                    <dd>-${Discount}</dd>
                                                 </div>
                                                 <div className="flex justify-between !text-base font-medium">
                                                     <dt>Total</dt>
-                                                    <dd>{Math.round(CartTitle + Free - (CartTitle * Discount / 100))}</dd>
+                                                    <dd>${Math.round(CartTitle + Free - (CartTitle * Discount / 100))}</dd>
                                                 </div>
                                             </dl>
                                             <div className="flex justify-end">
