@@ -2,14 +2,28 @@
 import React, { useEffect } from 'react';
 import Item from '../../../components/item';
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks';
-import {FetchProducts} from '../../../lib/features/ProductsSlice'
+import { FetchProducts } from '../../../lib/features/ProductsSlice'
 
-const Product = () => {
+const Product = ({ Price }) => {
+    console.log(Price?.min);
     const dispatch = useAppDispatch()
     const { products } = useAppSelector((state) => state.data)
 
+
+    const PriceProduct = products?.filter(product => {
+        return product?.price >= Price?.min && product?.price <= Price?.max
+    })
+
+    let AllProducts = products ;
+
+    if(PriceProduct == '' ){
+        AllProducts = products
+    }else{
+        AllProducts = PriceProduct
+    }
+
     // Handle All products 
-    const AllItems = products?.map((item) => (
+    const AllItems = AllProducts?.map((item) => (
         <Item key={item.id} item={item} />
     ))
 
