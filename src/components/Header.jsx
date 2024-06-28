@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import CartCount from './CartCount';
 import { useAppDispatch, useAppSelector } from '../lib/hooks';
 import { ShowAlert, getTitle } from '../lib/features/cartSlice';
@@ -15,13 +15,22 @@ import { Button, IconButton } from '@mui/material';
 
 const Header = () => {
     const { data: session, state } = useSession()
+    const [header , setheader] = useState()
     const user = session?.user
     const dispatch = useAppDispatch()
     const { ShowAlerttran } = useAppSelector((state) => state.cart)
 
+    window.onscroll = () =>{
+        if(window.scrollY > 30){
+            setheader('bg-white')
+        }else{
+            setheader('')
+        }
+    }
+
     return (
         <>
-            <header className="bg-white fixed w-full z-30">
+            <header className={`${header} fixed w-full z-30`}>
                 <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
                     <div className="flex h-16 items-center justify-between">
                         <div className="md:flex md:items-center md:gap-12">
@@ -71,7 +80,7 @@ const Header = () => {
                                 <>
                                     <Avatar />
                                     <IconButton onClick={()=> signOut() }  aria-label="delete" size="large">
-                                        <LogoutIcon />
+                                        <LogoutIcon sx={{color:'#333'}} />
                                     </IconButton>
                                 </>
                                 :

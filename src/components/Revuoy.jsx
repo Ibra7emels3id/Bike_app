@@ -19,7 +19,7 @@ const Revuoy = () => {
                                 />
 
                                 <div>
-                                    <div className="flex justify-center gap-0.5 text-green-500">
+                                    <div className="flex justify-center gap-0.5 text-yellow-600">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-5 w-5"
@@ -92,7 +92,7 @@ const Revuoy = () => {
                                 />
 
                                 <div>
-                                    <div className="flex justify-center gap-0.5 text-green-500">
+                                    <div className="flex justify-center gap-0.5 text-yellow-600">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-5 w-5"
@@ -165,7 +165,7 @@ const Revuoy = () => {
                                 />
 
                                 <div>
-                                    <div className="flex justify-center gap-0.5 text-green-500">
+                                    <div className="flex justify-center gap-0.5 text-yellow-600">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             className="h-5 w-5"
