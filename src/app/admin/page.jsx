@@ -4,36 +4,36 @@ import Header from './components/header';
 import { useRouter } from 'next/navigation';
 
 const Page = () => {
-    const router = useRouter();
-    const [Data, setData] = useState(
-        {
-            Email: '',
-            Password: ''
-        }
-    )
-    const user = JSON.parse(localStorage.getItem('admin'))
-    const handleSubmitAdmin = (e) => {
-        e.preventDefault();
-        localStorage.setItem('admin', JSON.stringify(Data))
-        if (user.Email === Data.Email && user.Password === Data.Password) {
-            router.push('/admin/dashboard')
-        } else {
-            alert('Invalid Email or Password')
-        }
-    }
-    useEffect(() => {
-        try {
-            if (user) {
-                router.push('/admin/dashboard')
-            } else {
-                alert('Invalid Email or Password')
-            }
-        } catch (e) {
-            console.log(e)
-        } finally {
-            <h3>Loading...</h3>
-        }
-    }, [])
+    // const router = useRouter();
+    // const [Data, setData] = useState(
+    //     {
+    //         Email: '',
+    //         Password: ''
+    //     }
+    // )
+    // const user = JSON.parse(localStorage.getItem('admin'))
+    // const handleSubmitAdmin = (e) => {
+    //     e.preventDefault();
+    //     localStorage.setItem('admin', JSON.stringify(Data))
+    //     if (user.Email === Data.Email && user.Password === Data.Password) {
+    //         router.push('/admin/dashboard')
+    //     } else {
+    //         alert('Invalid Email or Password')
+    //     }
+    // }
+    // useEffect(() => {
+    //     try {
+    //         if (user) {
+    //             router.push('/admin/dashboard')
+    //         } else {
+    //             alert('Invalid Email or Password')
+    //         }
+    //     } catch (e) {
+    //         console.log(e)
+    //     } finally {
+    //         <h3>Loading...</h3>
+    //     }
+    // }, [])
 
 
     return (
@@ -50,16 +50,16 @@ const Page = () => {
                         </p>
                     </div>
 
-                    <form onSubmit={handleSubmitAdmin} action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
+                    <form onSubmit={'handleSubmitAdmin'} action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
                         <div>
                             <label htmlFor="email" className="sr-only">Email</label>
 
                             <div className="relative">
                                 <input
-                                    onChange={(e) => {
-                                        setData({ ...Data, Email: e.target.value });
-                                    }}
-                                    value={Data.Email}
+                                    // onChange={(e) => {
+                                    //     setData({ ...Data, Email: e.target.value });
+                                    // }}
+                                    // value={Data.Email}
                                     type="email"
                                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Enter email"
@@ -89,10 +89,10 @@ const Page = () => {
 
                             <div className="relative">
                                 <input
-                                    onChange={(e) => {
-                                        setData({ ...Data, Password: e.target.value });
-                                    }}
-                                    value={Data.Password}
+                                    // onChange={(e) => {
+                                    //     setData({ ...Data, Password: e.target.value });
+                                    // }}
+                                    // value={Data.Password}
                                     type="password"
                                     className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
                                     placeholder="Enter password"
