@@ -4,7 +4,7 @@ import Item from '../../../components/item';
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks';
 import {FetchProducts} from '../../../lib/features/ProductsSlice'
 
-const Products = () => {
+const Product = () => {
     const dispatch = useAppDispatch()
     const { products } = useAppSelector((state) => state.data)
 
@@ -25,4 +25,4 @@ const Products = () => {
     );
 }
 
-export default Products;
+export default Product;
