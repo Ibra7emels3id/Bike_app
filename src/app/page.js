@@ -9,21 +9,18 @@ import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect } from "react";
+import Products from '../components/Products';
+import Revuoy from '../components/Revuoy';
 
 export default function Home() {
-    const dispatch = useAppDispatch()
-    const { products, isLoading, error } = useAppSelector((state) => state.data)
-
-    useEffect(() => {
-        dispatch(FetchProducts())
-    }, []);
-
     return (
         <>
             <Header />
             <Main/>
             <Slider />
             <Cycles />
+            <Products />
+            <Revuoy />
             <Footer/>
         </>
     )

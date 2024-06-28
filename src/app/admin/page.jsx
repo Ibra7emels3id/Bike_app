@@ -20,7 +20,6 @@ const Page = () => {
         } else {
             alert('Invalid Email or Password')
         }
-
     }
     useEffect(() => {
         try {

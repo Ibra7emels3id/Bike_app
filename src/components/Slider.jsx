@@ -34,12 +34,30 @@ const Slider = () => {
 
     return (
         <>
-            <div className="swiper w-[80%] my-16">
+            <div className="swiper w-[90%] md:w-[80%] my-16">
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={30}
                     loop={true}
                     navigation={true}
+                    breakpoints={{
+                        140: {
+                            slidesPerView: 1,
+                            spaceBetween: 30,
+                        },
+                        600: {
+                            slidesPerView: 1,
+                            spaceBetween: 100,
+                        },
+                        868: {
+                            slidesPerView: 2,
+                            spaceBetween: 20,
+                        },
+                        1124: {
+                            slidesPerView: 3,
+                            spaceBetween: 50,
+                        },
+                    }}
                     modules={[Pagination, Navigation]}
                     className="mySwiper"
                 >

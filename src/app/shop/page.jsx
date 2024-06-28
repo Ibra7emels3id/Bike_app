@@ -1,33 +1,8 @@
-'use client'
+import React from 'react';
 import Header from '../../components/Header';
-import Item from '../../components/item';
-import { FetchProducts } from '../../lib/features/ProductsSlice';
-import { useAppDispatch, useAppSelector } from '../../lib/hooks';
-import React, { useEffect } from 'react';
-
-// import ui 
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import Products from './_components/Products'
 
 const Page = () => {
-    const dispatch = useAppDispatch()
-    const { products } = useAppSelector((state) => state.data)
-
-
-    // handle Change
-    const handleChange = (event) => {
-        setAlignment(event.target.value);
-    };
-
-    // Handle All products 
-    const AllItems = products?.map((item) => (
-        <Item key={item.id} item={item} />
-    ))
-
-    // Handel Get Data Api
-    useEffect(() => {
-        dispatch(FetchProducts())
-    }, []);
 
     return (
         <>
@@ -182,10 +157,8 @@ const Page = () => {
                                                             className="w-full rounded-md border-gray-200 shadow-sm sm:text-sm"
                                                         />
                                                     </label>
-
                                                     <label htmlFor="FilterPriceTo" className="flex items-center gap-2">
                                                         <span className="text-sm text-gray-600">$</span>
-
                                                         <input
                                                             type="number"
                                                             id="FilterPriceTo"
@@ -200,10 +173,8 @@ const Page = () => {
                                 </details>
                             </div>
                         </div>
-
                         <div className="hidden sm:block">
                             <label htmlFor="SortBy" className="sr-only">SortBy</label>
-
                             <select id="SortBy" className="h-10 rounded border-gray-300 text-sm">
                                 <option>Sort By</option>
                                 <option value="Title, DESC">Title, DESC</option>
@@ -213,27 +184,8 @@ const Page = () => {
                             </select>
                         </div>
                     </div>
-
                     <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        {/* <li>
-                            <a href="#" className="group block overflow-hidden">
-                                <img
-                                    src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
-                                    alt=""
-                                    className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                                />
-                                <div className="relative bg-white pt-3">
-                                    <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                                        Basic Tee
-                                    </h3>
-                                    <p className="mt-2">
-                                        <span className="sr-only"> Regular Price </span>
-                                        <span className="tracking-wider text-gray-900"> £24.00 GBP </span>
-                                    </p>
-                                </div>
-                            </a>
-                        </li> */}
-                        {AllItems}
+                        <Products />
                     </ul>
                 </div>
             </section>

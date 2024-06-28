@@ -14,7 +14,7 @@ import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function RootLayout({ children }) {
     const initialOptions = {
-        clientId: 'AU76WoxpKyDmAa4goZkbeKDExVI5BriJmzGx99ux5tjhWqwQ5Px6MJftrGnoQgt94diTJjhUlhfM5QuX' ,
+        clientId: 'AU76WoxpKyDmAa4goZkbeKDExVI5BriJmzGx99ux5tjhWqwQ5Px6MJftrGnoQgt94diTJjhUlhfM5QuX',
         // clientId: `${process.env.NEXT_PAYPAL_ID}`,
         currency: "USD",
         intent: "capture",

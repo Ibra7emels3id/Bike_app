@@ -6,12 +6,15 @@ import { useAppDispatch, useAppSelector } from '../../../../lib/hooks';
 
 import { removeFromCart } from '../../../../lib/features/cartSlice';
 import Loader from './Loader'
+import { useSession } from 'next-auth/react';
 
 
 
 
 
 const CheckoutForm = () => {
+    const {data: session} = useSession()
+    console.log(session);
     const dispatch = useAppDispatch();
     const { cart, CartTitle, cartQuantity } = useAppSelector((state) => state.cart)
     const searchparams = useSearchParams()
@@ -24,9 +27,9 @@ const CheckoutForm = () => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    // username: user?.username,
-                    // email: user?.emailAddresses[0].emailAddress,
-                    // name: user?.fullName,
+                    name: session?.user?.name,
+                    email: session?.user?.email,
+                    image: session?.user?.image,
                     type: 'cart',
                     amount: Number(searchparams.get('amount')),
                     Date: {
