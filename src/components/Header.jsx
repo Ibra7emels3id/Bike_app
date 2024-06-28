@@ -15,18 +15,20 @@ import { Button, IconButton } from '@mui/material';
 
 const Header = () => {
     const { data: session, state } = useSession()
-    const [header , setheader] = useState()
+    const [header, setheader] = useState()
     const user = session?.user
     const dispatch = useAppDispatch()
     const { ShowAlerttran } = useAppSelector((state) => state.cart)
 
-    // window.onscroll = () =>{
-    //     if(window.scrollY > 30){
-    //         setheader('bg-white')
-    //     }else{
-    //         setheader('')
-    //     }
-    // }
+    useEffect(() => {
+        window.onscroll = () => {
+            if (window.scrollY > 30) {
+                setheader('bg-white')
+            } else {
+                setheader('')
+            }
+        }
+    },[window.scrollY])
 
     return (
         <>
@@ -79,8 +81,8 @@ const Header = () => {
                             {user ?
                                 <>
                                     <Avatar />
-                                    <IconButton onClick={()=> signOut() }  aria-label="delete" size="large">
-                                        <LogoutIcon sx={{color:'#333'}} />
+                                    <IconButton onClick={() => signOut()} aria-label="delete" size="large">
+                                        <LogoutIcon sx={{ color: '#333' }} />
                                     </IconButton>
                                 </>
                                 :
