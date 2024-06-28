@@ -20,15 +20,21 @@ const Header = () => {
     const dispatch = useAppDispatch()
     const { ShowAlerttran } = useAppSelector((state) => state.cart)
 
-    useEffect(() => {
-        window.onscroll = () => {
-            if (window.scrollY > 30) {
-                setheader('bg-white')
-            } else {
-                setheader('')
-            }
-        }
-    },[window.scrollY])
+        useEffect(() => {
+            const handleScroll = () => {
+                if (window.scrollY > 30) {
+                    setheader('bg-white');
+                } else {
+                    setheader('');
+                }
+            };
+
+            window.addEventListener('scroll', handleScroll);
+
+            return () => {
+                window.removeEventListener('scroll', handleScroll);
+            };
+        }, []);
 
     return (
         <>
