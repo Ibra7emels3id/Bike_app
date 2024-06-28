@@ -13,7 +13,7 @@ const Main = () => {
                 <div
                     className="relative mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:h-screen lg:items-center lg:px-8"
                 >
-                    <div className="max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
+                    <div className="main-text max-w-xl text-center ltr:sm:text-left rtl:sm:text-right">
                         <h1 className="text-3xl text-start font-extrabold text-white sm:text-5xl">
                             Let us find your
 

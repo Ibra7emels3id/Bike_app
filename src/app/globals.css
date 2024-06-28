@@ -22,13 +22,6 @@
     z-index: 1;
 }
 
-
-/* 
-.LinkTransactions{
-    display: none;
-    opacity: 0;
+.main-text {
+    z-index: 100;
 }
-.LinkUser:hover.LinkTransactions{
-    opacity: 1 !important;
-    display: flex !important;
-} */
