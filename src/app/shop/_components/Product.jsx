@@ -16,7 +16,7 @@ const Product = ({ Price }) => {
 
     let AllProducts = products ;
 
-    if(PriceProduct == '' ){
+    if(PriceProduct == ''){
         AllProducts = products
     }else{
         AllProducts = PriceProduct
