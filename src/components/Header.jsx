@@ -10,31 +10,32 @@ import { signOut, useSession } from 'next-auth/react';
 import Avatar from './Avatars'
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Button, IconButton } from '@mui/material';
+import Loading from './Loading';
 
 
 
 const Header = () => {
-    const { data: session, state } = useSession()
+    const { data: session, status } = useSession()
     const [header, setheader] = useState()
     const user = session?.user
     const dispatch = useAppDispatch()
     const { ShowAlerttran } = useAppSelector((state) => state.cart)
 
-        useEffect(() => {
-            const handleScroll = () => {
-                if (window.scrollY > 30) {
-                    setheader('bg-white');
-                } else {
-                    setheader('');
-                }
-            };
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 30) {
+                setheader('bg-white');
+            } else {
+                setheader('');
+            }
+        };
 
-            window.addEventListener('scroll', handleScroll);
+        window.addEventListener('scroll', handleScroll);
 
-            return () => {
-                window.removeEventListener('scroll', handleScroll);
-            };
-        }, []);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
         <>
@@ -56,18 +57,19 @@ const Header = () => {
                             <nav aria-label="Global">
                                 <ul className="flex items-center gap-6 text-sm">
                                     <li>
-                                        <Link className="text-gray-500 transition hover:text-gray-500/75" href="#"> About </Link>
+                                        <Link className="text-gray-500 transition hover:text-gray-500/75" href="/"> Home </Link>
                                     </li>
                                     <li>
                                         <Link className="text-gray-500 transition hover:text-gray-500/75" href="/shop"> shop </Link>
                                     </li>
                                     <li>
-                                        <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> History </a>
+                                        <a className="text-gray-500 transition hover:text-gray-500/75" href="/services"> Services </a>
                                     </li>
                                     <li>
-                                        <a className="text-gray-500 transition hover:text-gray-500/75" href="#"> Services </a>
+                                        <a className="text-gray-500 transition hover:text-gray-500/75" href="/team"> Team </a>
                                     </li>
-                                    {user &&
+                                    {status === 'loading' ? <Loading /> :
+                                        user &&
                                         <li>
                                             <button onClick={() => {
                                                 dispatch(ShowAlert())
