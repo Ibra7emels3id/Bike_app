@@ -11,6 +11,16 @@ export const FetchProducts = createAsyncThunk('FetchProducts', async () => {
         console.error(err)
     }
 })
+// Get All Data Api category
+export const FetchCategory = createAsyncThunk('FetchCategory', async () => {
+    try {
+        const data = await fetch('http://localhost:9000/category')
+        const category = await data.json()
+        return category
+    } catch (err) {
+        console.error(err)
+    }
+})
 
 // Delete Item Api
 export const DeleteProduct = createAsyncThunk('DeleteProduct', async (id) => {
@@ -80,6 +90,7 @@ export const FetchGettransactionAdmin = createAsyncThunk('FetchGettransactionAdm
 
 const initialState = {
     products: [],
+    category:[],
     isLoading: false,
     error: null,
     Gettransaction: [],
@@ -99,6 +110,15 @@ const productSlice = createSlice({
         builder.addCase(FetchProducts.fulfilled, (state, action) => {
             state.isLoading = false
             state.products = action.payload
+        })
+
+        // Get Data Api category
+        builder.addCase(FetchCategory.pending, (state, action) => {
+            state.isLoading = true
+        })
+        builder.addCase(FetchCategory.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.category = action.payload
         })
 
         // Delete item

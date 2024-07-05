@@ -1,21 +1,40 @@
 'use client'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import Products from './_components/Product'
 import Footer from '../../components/Footer';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks';
+import { FetchCategory, FetchProducts } from '../../lib/features/ProductsSlice';
+import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 const Page = () => {
+    const [FilterCategory, setAlignment] = useState('All');
+    const { products, category, isLoading, error } = useAppSelector((state) => state.data)
+
+    const dispatch = useAppDispatch()
     const [Price, setPrice] = useState({
         min: 0,
         max: 0,
     })
 
-    const [AllPrice , setAllPrice] = useState()
+    const [AllPrice, setAllPrice] = useState()
 
     const handlesubmit = (event) => {
         event.preventDefault()
         setAllPrice(Price)
     }
+
+    // handle Check box
+    const handleChange = (event) => {
+        setAlignment(event.target.value);
+    }
+
+
+    // Handel Get Data Api
+    useEffect(() => {
+        dispatch(FetchProducts())
+        dispatch(FetchCategory())
+    }, []);
 
     return (
         <>
@@ -48,7 +67,7 @@ const Page = () => {
                             </button>
                         </div>
                         <div className="hidden sm:flex sm:gap-4">
-                            <div className="relative">
+                            <div className="relative border p-2 w-64">
                                 <details className="group [&_summary::-webkit-details-marker]:hidden">
                                     <summary
                                         className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600"
@@ -75,50 +94,26 @@ const Page = () => {
                                         className="z-50 group-open:absolute group-open:top-auto group-open:mt-2 ltr:group-open:start-0"
                                     >
                                         <div className="w-96 rounded border border-gray-200 bg-white">
-                                            <header className="flex items-center justify-between p-4">
-                                                <span className="text-sm text-gray-700"> 0 Selected </span>
-                                                <button type="button" className="text-sm text-gray-900 underline underline-offset-4">
-                                                    Reset
-                                                </button>
-                                            </header>
-                                            <ul className="space-y-1 border-t border-gray-200 p-4">
-                                                <li>
-                                                    <label htmlFor="FilterInStock" className="inline-flex items-center gap-2">
-                                                        <input
-                                                            type="checkbox"
-                                                            id="FilterInStock"
-                                                            className="size-5 rounded border-gray-300"
-                                                        />
-                                                        <span className="text-sm font-medium text-gray-700"> In Stock (5+) </span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label htmlFor="FilterPreOrder" className="inline-flex items-center gap-2">
-                                                        <input
-
-                                                            type="checkbox"
-                                                            id="FilterPreOrder"
-                                                            className="size-5 rounded border-gray-300"
-                                                        />
-                                                        <span className="text-sm font-medium text-gray-700"> Pre Order (3+) </span>
-                                                    </label>
-                                                </li>
-                                                <li>
-                                                    <label htmlFor="FilterOutOfStock" className="inline-flex items-center gap-2">
-                                                        <input
-                                                            type="checkbox"
-                                                            id="FilterOutOfStock"
-                                                            className="size-5 rounded border-gray-300"
-                                                        />
-                                                        <span className="text-sm font-medium text-gray-700"> Out of Stock (10+) </span>
-                                                    </label>
-                                                </li>
-                                            </ul>
+                                            <div className="space-y-1 border-t border-gray-200 px-2">
+                                                <ToggleButtonGroup
+                                                    className='space-y-1 flex flex-col gap-3 border-t border-gray-200 p-4'
+                                                    color="primary"
+                                                    value={FilterCategory}
+                                                    exclusive
+                                                    onChange={handleChange}
+                                                    aria-label="Platform"
+                                                >
+                                                        <ToggleButton className='w-full' value='All'>All</ToggleButton>
+                                                    {category?.map((product) => (
+                                                        <ToggleButton className='w-full' value={product.categoryName}>{product.categoryName}</ToggleButton>
+                                                    ))}
+                                                </ToggleButtonGroup>
+                                            </div>
                                         </div>
                                     </div>
                                 </details>
                             </div>
-                            <div className="relative">
+                            <div className="relative  border p-2 w-64">
                                 <details className="group [&_summary::-webkit-details-marker]:hidden">
                                     <summary
                                         className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600"
@@ -182,7 +177,7 @@ const Page = () => {
                                                                 />
                                                             </label>
                                                         </div>
-                                                        <button className='bg-red-600 w-full my-2 py-2' type='submit'>Filter Price</button>
+                                                        <button className='bg-red-600 w-full my-2 py-2 text-white' type='submit'>Filter Price</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -203,7 +198,7 @@ const Page = () => {
                         </div> */}
                     </div>
                     <ul className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                        <Products Price={AllPrice} />
+                        <Products Price={AllPrice} category={FilterCategory} />
                     </ul>
                 </div>
             </section>

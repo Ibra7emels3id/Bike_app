@@ -4,8 +4,7 @@ import Item from '../../../components/item';
 import { useAppDispatch, useAppSelector } from '../../../lib/hooks';
 import { FetchProducts } from '../../../lib/features/ProductsSlice'
 
-const Product = ({ Price }) => {
-    console.log(Price?.min);
+const Product = ({ Price, category }) => {
     const dispatch = useAppDispatch()
     const { products } = useAppSelector((state) => state.data)
 
@@ -14,12 +13,20 @@ const Product = ({ Price }) => {
         return product?.price >= Price?.min && product?.price <= Price?.max
     })
 
-    let AllProducts = products ;
+    const CategoryProduct = products?.filter(product => (
+        product?.category == category
+    ))
 
-    if(PriceProduct == ''){
+    let AllProducts = products
+
+    if (category !== 'All') {
+        AllProducts = CategoryProduct
+    } else if (category == 'All') {
         AllProducts = products
-    }else{
+    } else if (PriceProduct !== '') {
         AllProducts = PriceProduct
+    } else if(PriceProduct == '') {
+        AllProducts = products
     }
 
     // Handle All products 
@@ -30,7 +37,7 @@ const Product = ({ Price }) => {
     // Handel Get Data Api
     useEffect(() => {
         dispatch(FetchProducts())
-    }, []);
+    }, [dispatch]);
 
     return (
         <>
