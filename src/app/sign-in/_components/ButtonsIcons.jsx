@@ -7,10 +7,10 @@ import GithubButton from 'react-github-login-button'
 const ButtonsIcons = () => {
     return (
         <>
-            <GoogleButton
+            <GoogleButton style={{ width: '100%' }}
                 onClick={() => signIn('google', { callbackUrl: '/' })}
             />
-            <GithubButton
+            <GithubButton style={{ width: '100%' }}
                 onClick={() => signIn('github', { callbackUrl: '/' })}
             />
         </>

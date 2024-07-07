@@ -6,12 +6,12 @@ import Link from 'next/link';
 
 
 const Forms = () => {
-    const {data: session} = useSession()
+    const { data: session } = useSession()
     return (
         <>
             {session?.user ? <Link href={'/Account'} >Account</Link> :
                 <>
-                    <div className="icons grid grid-cols-2 w-full gap-4">
+                    <div className="icons grid grid-cols-1 md:grid-cols-2 w-full gap-4">
                         <ButtonsIcons />
                     </div>
                     <form className="mt-8 grid grid-cols-6 gap-6">
@@ -37,11 +37,11 @@ const Forms = () => {
                             <button
                                 className="inline-block w-full shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                             >
-                                Create an account
+                                Login
                             </button>
                             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                Already have an account?
-                                <a href="#" className="text-gray-700 underline">Log in</a>.
+                                Regester your account? 
+                                <Link href="/sign-up" className="text-gray-700 underline"> Sign up</Link>.
                             </p>
                         </div>
                     </form>

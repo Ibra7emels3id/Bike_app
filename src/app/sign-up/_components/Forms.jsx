@@ -11,7 +11,7 @@ const Forms = () => {
         <>
             {session?.user ? <Link href={'/Account'} >Account</Link> :
                 <>
-                    <div className="icons grid grid-cols-2 w-full gap-4">
+                    <div className="icons grid md:grid-cols-2 grid-cols-1 w-full gap-4">
                         <ButtonsIcons />
                     </div>
                     <form className="mt-8 grid grid-cols-6 gap-6">
@@ -87,15 +87,15 @@ const Forms = () => {
                                 <a href="#" className="text-gray-700 underline">privacy policy</a>.
                             </p>
                         </div>
-                        <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
+                        <div className="col-span-6 sm:flex flex-col sm:items-center sm:gap-4">
                             <button
-                                className="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+                                className="inline-block w-full shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                             >
                                 Create an account
                             </button>
                             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                 Already have an account?
-                                <a href="#" className="text-gray-700 underline">Log in</a>.
+                                <Link href="/sign-in" className="text-gray-700 underline">Log in</Link>.
                             </p>
                         </div>
                     </form>
