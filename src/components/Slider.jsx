@@ -61,7 +61,7 @@ const Slider = () => {
                     modules={[Pagination, Navigation]}
                     className="mySwiper"
                 >
-                    {products?.slice(0, 5).map((product, index) => (
+                    {products?.slice(0, 5)?.map((product, index) => (
                         <SwiperSlide key={index} className='flex flex-col'>
                             <div className="box w-full bg-slate-800 p-5 rounded-lg relative">
                                 <div className="img p-5">
@@ -73,13 +73,13 @@ const Slider = () => {
                                     />
                                 </div>
                                 <div className="text mt-5 text-start">
-                                    <h3 className='text-2xl text-yellow-600 font-medium h-10'>{product.title.slice(0, 20)}.</h3>
-                                    <p className='text-gray-400 text-sm mt-2 h-16'>{product.description.slice(0, 130)}...</p>
+                                    <h3 className='text-2xl text-yellow-600 font-medium h-10'>{product?.title?.slice(0, 20)}.</h3>
+                                    <p className='text-gray-400 text-sm mt-2 h-16'>{product?.description?.slice(0, 130)}...</p>
                                     <div className="rating flex items-center justify-between pt-4 pb-1">
                                         <Stack spacing={1}>
-                                            <Rating name="half-rating" defaultValue={product.rating.rate} precision={0.5} />
+                                            <Rating name="half-rating" defaultValue={product?.rating?.rate} precision={0.5} />
                                         </Stack>
-                                        <small className='text-yellow-500'>$<span className='text-white'>{product.price}</span></small>
+                                        <small className='text-yellow-500'>$<span className='text-white'>{product?.price}</span></small>
                                     </div>
                                 </div>
                                 <div className="Like flex absolute left-5 top-5 bg-zinc-600 h-10 w-10 rounded-full items-center justify-center">
