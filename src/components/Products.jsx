@@ -9,7 +9,7 @@ const Products = () => {
     const dispatch = useAppDispatch()
 
     // Handle All products 
-    const AllItems = products.slice(0 , 8)?.map((item) => (
+    const AllItems = products?.slice(0 , 8)?.map((item) => (
         <Item key={item.id} item={item} />
     ))
 
