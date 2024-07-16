@@ -1,6 +1,38 @@
+'use client'
+import { useSession } from "next-auth/react"
 import Link from "next/link"
+import { useAppDispatch, useAppSelector } from "../../../../lib/hooks"
+import { useEffect, useState } from "react"
+import { FetchGettransaction } from "../../../../lib/features/ProductsSlice"
+import { useSearchParams } from "next/navigation"
 
 export default function Component() {
+    const [AllAmount, setAllAmount] = useState()
+    const [AllName, setAllName] = useState('')
+    const { data: session } = useSession()
+    const dispatch = useAppDispatch()
+    const { Gettransaction, isLoading } = useAppSelector((state) => state.data)
+
+    // filter Cart of user 
+    const FilterCart = Gettransaction?.filter((it) => {
+        return it.email === session?.user?.email
+    })
+
+    if (FilterCart[0]?.Date?.Date == new Date().toLocaleDateString()) {
+        FilterCart.map((it) => {
+            return (
+                setAllAmount(it.amount)
+            )
+        })
+    }
+
+
+
+    // dispatch
+    useEffect(() => {
+        dispatch(FetchGettransaction())
+    }, [dispatch])
+
     return (
         <>
             <div className="flex flex-col min-h-screen">
@@ -11,15 +43,15 @@ export default function Component() {
                     <div className="mt-6 border rounded-lg p-4 w-full max-w-md">
                         <div className="flex justify-between text-sm">
                             <span>Amount Paid:</span>
-                            <span className="font-medium">$100.00</span>
+                            <span className="font-medium">{AllAmount}</span>
                         </div>
                         <div className="flex justify-between text-sm mt-2">
                             <span>Date & Time:</span>
-                            <span className="font-medium">January 22, 2024, 10:30 AM</span>
+                            <span className="font-medium">{new Date().toLocaleDateString()}, {new Date().toLocaleTimeString()}</span>
                         </div>
                         <div className="flex justify-between text-sm mt-2">
-                            <span>Reference Number:</span>
-                            <span className="font-medium">1234567890</span>
+                            <span>Name User:</span>
+                            <span className="font-medium">{AllName}</span>
                         </div>
                     </div>
                     <Link

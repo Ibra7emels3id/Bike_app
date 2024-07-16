@@ -8,7 +8,7 @@ const Page = () => {
     return (
         <>
             <Header />
-            <section className="bg-white">
+            <section className="bg-white w-full">
                 <div className="lg:grid lg:min-h-screen lg:grid-cols-12">
                     <section className="relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6">
                         <img
@@ -39,8 +39,8 @@ const Page = () => {
                         </div>
                     </section>
 
-                    <main className="flex items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
-                        <div className="max-w-xl lg:max-w-3xl">
+                    <main className="flex w-full items-center justify-center px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
+                        <div className="max-w-xl lg:max-w-3xl w-full">
                             <div className="relative -mt-16 block lg:hidden">
                                 
                                 <h1 className="mt-32 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
@@ -51,7 +51,7 @@ const Page = () => {
                                     quibusdam aperiam voluptatum.
                                 </p>
                             </div>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col w-full">
                                 <Forms />
                             </div>
                         </div>
