@@ -11,7 +11,7 @@ import Link from "next/link";
 import { useEffect } from "react";
 import Products from '../components/Products';
 import Revuoy from '../components/Revuoy';
-
+import TimeWork from '../components/TimeWork';
 export default function Home() {
     return (
         <>
@@ -21,6 +21,7 @@ export default function Home() {
             <Cycles />
             <Products />
             <Revuoy />
+            <TimeWork />
             <Footer/>
         </>
     )

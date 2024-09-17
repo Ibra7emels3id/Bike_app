@@ -6,7 +6,7 @@ import Link from 'next/link';
 
 
 const Forms = () => {
-    const {data: session} = useSession()
+    const { data: session } = useSession()
     return (
         <>
             {session?.user ? <Link href={'/Account'} >Account</Link> :
