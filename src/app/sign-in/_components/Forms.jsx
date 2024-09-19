@@ -1,12 +1,50 @@
 'use client'
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSession, signIn } from 'next-auth/react';
 import ButtonsIcons from './ButtonsIcons'
 import Link from 'next/link';
+import { toast } from 'react-toastify';
 
 
 const Forms = () => {
     const { data: session } = useSession()
+    const [FormData, setFormData] = useState({
+        email: '',
+        password: '',
+    })
+
+
+
+    // Change Input Form
+    const handleChange = (e) => {
+        setFormData({ ...FormData, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        // console.log(FormData);
+        try {
+            const res = await signIn("credentials", {
+                email: FormData.email,
+                password: FormData.password,
+                redirect: false,
+            });
+            if (res.error) {
+                console.log('Error during signIn:', res.error);
+                toast.error('Please check your email or password')
+            } else {
+                console.log('SignIn successful:', res);
+                toast.success("Login success")
+            }
+            toast.success("Login success")
+
+        } catch (error) {
+            console.error('Error:', error);
+            toast.error('Something went wrong!')
+        }
+    }
+
+
     return (
         <>
             {session?.user ? <Link href={'/Account'} >Account</Link> :
@@ -18,6 +56,7 @@ const Forms = () => {
                         <div className="col-span-6">
                             <label htmlFor="Email" className="block text-sm font-medium text-gray-700"> Email </label>
                             <input
+                                onChange={handleChange}
                                 type="email"
                                 id="Email"
                                 name="email"
@@ -27,6 +66,7 @@ const Forms = () => {
                         <div className="col-span-6">
                             <label htmlFor="Password" className="block text-sm font-medium text-gray-700"> Password </label>
                             <input
+                                onChange={handleChange}
                                 type="password"
                                 id="Password"
                                 name="password"
@@ -35,12 +75,14 @@ const Forms = () => {
                         </div>
                         <div className="col-span-6 mt-8 sm:flex flex-col sm:items-center sm:gap-4">
                             <button
+                                onClick={handleSubmit}
+                                type="submit"
                                 className="inline-block w-full shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                             >
                                 Login
                             </button>
                             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
-                                Regester your account? 
+                                Regester your account?
                                 <Link href="/sign-up" className="text-gray-700 underline"> Sign up</Link>.
                             </p>
                         </div>
