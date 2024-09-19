@@ -25,6 +25,7 @@ export default function RootLayout({ children }) {
                 <Provider store={store} >
                     <PayPalScriptProvider options={initialOptions}>
                         <AuthProvider>
+                            <ToastContainer />
                             {children}
                         </AuthProvider>
                     </PayPalScriptProvider>

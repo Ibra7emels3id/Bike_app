@@ -1,8 +1,11 @@
 'use client'
 import Link from 'next/link';
 import React from 'react';
+import { useAppDispatch } from '../lib/hooks';
+import { ShowAlert } from '../lib/features/cartSlice';
 
 const AlertDAtaUser = () => {
+    const dispatch = useAppDispatch()
     return (
         <>
             <div
@@ -11,7 +14,9 @@ const AlertDAtaUser = () => {
                 role="dialog"
                 tabIndex="-1"
             >
-                <button className="absolute end-4 top-4 text-gray-600 transition hover:scale-110">
+                <button onClick={() => {
+                    dispatch(ShowAlert())
+                }} className="absolute end-4 top-4 text-gray-600 transition hover:scale-110">
                     <span className="sr-only">Close cart</span>
 
                     <svg
@@ -26,8 +31,12 @@ const AlertDAtaUser = () => {
                     </svg>
                 </button>
                 <div className="Transactions flex flex-col gap-4">
-                    <Link className='bg-white py-2 px-3' href={'/transactions'}>Transactions</Link>
-                    <Link className='bg-white py-2 px-3' href={'/cart-transaction'}>cart Transaction</Link>
+                    <Link onClick={() => {
+                        dispatch(ShowAlert())
+                    }} className='bg-white py-2 px-3' href={'/transactions'}>Transactions</Link>
+                    <Link onClick={() => {
+                        dispatch(ShowAlert())
+                    }} className='bg-white py-2 px-3' href={'/cart-transaction'}>cart Transaction</Link>
                 </div>
             </div>
         </>

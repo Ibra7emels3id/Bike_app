@@ -4,14 +4,18 @@ import { useSession, signIn } from 'next-auth/react';
 import ButtonsIcons from './ButtonsIcons'
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import { Box } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const Forms = () => {
     const { data: session } = useSession()
+    const [loading, setLoading] = useState(false)
     const [FormData, setFormData] = useState({
         email: '',
         password: '',
     })
+
 
 
 
@@ -23,6 +27,7 @@ const Forms = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         // console.log(FormData);
+        setLoading(true)
         try {
             const res = await signIn("credentials", {
                 email: FormData.email,
@@ -36,11 +41,12 @@ const Forms = () => {
                 console.log('SignIn successful:', res);
                 toast.success("Login success")
             }
-            toast.success("Login success")
-
         } catch (error) {
             console.error('Error:', error);
             toast.error('Something went wrong!')
+            setLoading(false)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -74,13 +80,15 @@ const Forms = () => {
                             />
                         </div>
                         <div className="col-span-6 mt-8 sm:flex flex-col sm:items-center sm:gap-4">
-                            <button
+                            {loading ? <Box className=' bg-slate-100 h-12 rounded-md w-full flex items-center justify-center' sx={{ display: 'flex' }}>
+                                <CircularProgress />
+                            </Box> : <button
                                 onClick={handleSubmit}
                                 type="submit"
                                 className="inline-block w-full shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
                             >
                                 Login
-                            </button>
+                            </button>}
                             <p className="mt-4 text-sm text-gray-500 sm:mt-0">
                                 Regester your account?
                                 <Link href="/sign-up" className="text-gray-700 underline"> Sign up</Link>.

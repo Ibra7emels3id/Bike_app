@@ -9,29 +9,34 @@ import { useSearchParams } from "next/navigation"
 export default function Component() {
     const [AllAmount, setAllAmount] = useState()
     const [AllName, setAllName] = useState('')
+    const [currentDateTime, setCurrentDateTime] = useState('')
     const { data: session } = useSession()
     const dispatch = useAppDispatch()
     const { Gettransaction, isLoading } = useAppSelector((state) => state.data)
+    const user = session?.user
 
     // filter Cart of user 
     const FilterCart = Gettransaction?.filter((it) => {
         return it.email === session?.user?.email
     })
 
-    if (FilterCart[0]?.Date?.Date == new Date().toLocaleDateString()) {
-        FilterCart.map((it) => {
-            return (
-                setAllAmount(it.amount)
-            )
-        })
-    }
+    useEffect(() => {
+        if (FilterCart.length > 0 && FilterCart[0]?.Date?.Date === new Date().toLocaleDateString()) {
+            const amounts = FilterCart.map(it => it.amount);
+            if (amounts.length > 0) {
+                setAllAmount(amounts[0]); 
+            }
+        }
+    }, [FilterCart]);
 
-
-
-    // dispatch
     useEffect(() => {
         dispatch(FetchGettransaction())
-    }, [dispatch])
+    }, [dispatch]);
+
+    // Update date time only on client-side
+    useEffect(() => {
+        setCurrentDateTime(new Date().toLocaleString());
+    }, []);
 
     return (
         <>
@@ -47,11 +52,11 @@ export default function Component() {
                         </div>
                         <div className="flex justify-between text-sm mt-2">
                             <span>Date & Time:</span>
-                            <span className="font-medium">{new Date().toLocaleDateString()}, {new Date().toLocaleTimeString()}</span>
+                            <span className="font-medium">{currentDateTime}</span>
                         </div>
                         <div className="flex justify-between text-sm mt-2">
                             <span>Name User:</span>
-                            <span className="font-medium">{AllName}</span>
+                            <span className="font-medium">{user?.first_name} {user?.last_name}</span>
                         </div>
                     </div>
                     <Link
@@ -89,7 +94,6 @@ function CircleCheckIcon(props) {
         </svg>
     )
 }
-
 
 function MountainIcon(props) {
     return (

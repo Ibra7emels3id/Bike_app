@@ -104,7 +104,8 @@ const CheckoutForm = () => {
             elements,
             clientSecret,
             confirmParams: {
-                return_url: `https://bike-app-oic6.vercel.app/cart/checkout/sucsses`,
+                // return_url: `https://bike-app-oic6.vercel.app/cart/checkout/sucsses`,
+                return_url: `http://localhost:3000/cart/checkout/sucsses`,
             },
         })
         setLoading(false);

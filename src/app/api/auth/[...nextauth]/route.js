@@ -7,6 +7,7 @@ import User from "../../../models/User"
 import bcrypt from 'bcrypt'
 
 
+
 const handler = NextAuth({
     providers: [
         GoogleProvider({
@@ -24,15 +25,37 @@ const handler = NextAuth({
                 if (user) {
                     const HashPassword = await bcrypt.compare(credentials.password, user.password)
                     if (HashPassword) {
-                        return user
+                        return {
+                            id: user._id,
+                            first_name: user.first_name,
+                            last_name: user.last_name,
+                            email: user.email,
+                            image: user.image
+                        }
                     }
                     return user
                 } else {
                     return null
                 }
             }
-        })
+        }),
     ],
+    callbacks: {
+        async session({ session, token }) {
+            session.user.id = token.id;
+            session.user.first_name = token.first_name;
+            session.user.last_name = token.last_name;
+            return session;
+        },
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.first_name = user.first_name;
+                token.last_name = user.last_name;
+            }
+            return token;
+        },
+    },
 
     secret: process.env.SIGNING_PRIVATE_KEY
 })

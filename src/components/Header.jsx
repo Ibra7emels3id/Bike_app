@@ -15,7 +15,7 @@ import Loading from './Loading';
 
 
 const Header = () => {
-    const { data: session, status } = useSession()
+    const { data: session, status  } = useSession()
     const [header, setheader] = useState()
     const user = session?.user
     const dispatch = useAppDispatch()

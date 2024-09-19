@@ -1,12 +1,11 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "../../db/MongoDB";
 import User from "../../models/User";
-import bcrypt from 'bcrypt'
-
+import bcrypt from "bcrypt";
 
 export async function POST(req) {
     try {
-        // الاتصال بقاعدة بيانات MongoDB
+        // Connect MongoDB
         await connectMongoDB();
 
         const { first_name, last_name, email, password } = await req.json();
@@ -19,9 +18,11 @@ export async function POST(req) {
             );
         }
 
-
         if (password.length < 8) {
-            return NextResponse.json({ error: "Please Inter a strong Password" }, { status: 400 });
+            return NextResponse.json(
+                { error: "Please Inter a strong Password" },
+                { status: 400 }
+            );
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -30,17 +31,18 @@ export async function POST(req) {
             first_name,
             last_name,
             email,
-            password:hashedPassword,
+            role: "user",
+            password: hashedPassword,
         });
 
         await newUser.save();
 
-        return NextResponse.json({ message: "Cerate User success" }, { status: 200 });
+        return NextResponse.json(
+            { message: "Cerate User success" },
+            { status: 200 }
+        );
     } catch (error) {
         console.error(error);
-        return NextResponse.json(
-            { error: "in Not found error" },
-            { status: 500 }
-        );
+        return NextResponse.json({ error: "in Not found error" }, { status: 500 });
     }
 }
