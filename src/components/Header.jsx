@@ -9,14 +9,24 @@ import AlertDAtaUser from './AlertDAtaUser.jsx'
 import { signOut, useSession } from 'next-auth/react';
 import Avatar from './Avatars'
 import LogoutIcon from '@mui/icons-material/Logout';
-import { Button, IconButton } from '@mui/material';
+import { Button } from '@mui/material';
 import Loading from './Loading';
-
+import Box from '@mui/joy/Box';
+import IconButton from '@mui/joy/IconButton';
+import Drawer from '@mui/joy/Drawer';
+import Input from '@mui/joy/Input';
+import List from '@mui/joy/List';
+import ListItemButton from '@mui/joy/ListItemButton';
+import Typography from '@mui/joy/Typography';
+import ModalClose from '@mui/joy/ModalClose';
+import Menu from '@mui/icons-material/Menu';
+import Search from '@mui/icons-material/Search';
 
 
 const Header = () => {
-    const { data: session, status  } = useSession()
+    const { data: session, status } = useSession()
     const [header, setheader] = useState()
+    const [open, setOpen] = React.useState(false);
     const user = session?.user
     const dispatch = useAppDispatch()
     const { ShowAlerttran } = useAppSelector((state) => state.cart)
@@ -91,7 +101,10 @@ const Header = () => {
                             {user ?
                                 <>
                                     <Avatar />
-                                    <IconButton onClick={() => signOut()} aria-label="delete" size="large">
+                                    <IconButton onClick={async() => {
+                                        await signOut()
+                                        window.location.href = '/'
+                                    }} aria-label="delete" size="large">
                                         <LogoutIcon sx={{ color: '#333' }} />
                                     </IconButton>
                                 </>
@@ -109,18 +122,95 @@ const Header = () => {
                             }
 
                             <div className="block md:hidden">
-                                <button className="rounded bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="h-5 w-5"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                        strokeWidth="2"
-                                    >
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                                    </svg>
-                                </button>
+                                <React.Fragment>
+                                    <IconButton variant="outlined" color="neutral" onClick={() => setOpen(true)}>
+                                        <Menu />
+                                    </IconButton>
+                                    <Drawer open={open} onClose={() => setOpen(false)}>
+                                        <Box
+                                            sx={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: 0.5,
+                                                ml: 'auto',
+                                                mt: 1,
+                                                mr: 2,
+                                            }}
+                                        >
+                                            <Typography
+                                                component="label"
+                                                htmlFor="close-icon"
+                                                sx={{ fontSize: 'sm', fontWeight: 'lg', cursor: 'pointer' }}
+                                            >
+                                                Close
+                                            </Typography>
+                                            <ModalClose id="close-icon" sx={{ position: 'initial' }} />
+                                        </Box>
+                                        <Input
+                                            size="sm"
+                                            placeholder="Search"
+                                            variant="plain"
+                                            endDecorator={<Search />}
+                                            slotProps={{
+                                                input: {
+                                                    'aria-label': 'Search anything',
+                                                },
+                                            }}
+                                            sx={{
+                                                m: 3,
+                                                borderRadius: 0,
+                                                borderBottom: '2px solid',
+                                                borderColor: 'neutral.outlinedBorder',
+                                                '&:hover': {
+                                                    borderColor: 'neutral.outlinedHoverBorder',
+                                                },
+                                                '&::before': {
+                                                    border: '1px solid var(--Input-focusedHighlight)',
+                                                    transform: 'scaleX(0)',
+                                                    left: 0,
+                                                    right: 0,
+                                                    bottom: '-2px',
+                                                    top: 'unset',
+                                                    transition: 'transform .15s cubic-bezier(0.1,0.9,0.2,1)',
+                                                    borderRadius: 0,
+                                                },
+                                                '&:focus-within::before': {
+                                                    transform: 'scaleX(1)',
+                                                },
+                                            }}
+                                        />
+                                        <List
+                                            size="lg"
+                                            component="nav"
+                                            sx={{
+                                                flex: 'none',
+                                                fontSize: 'xl',
+                                                '& > div': { justifyContent: 'center' },
+                                            }}
+                                        >
+                                            <ListItemButton sx={{ fontWeight: 'lg' }}><Link href={'/'}>Home</Link></ListItemButton>
+                                            <ListItemButton><Link href={'/shop'}>Shop</Link></ListItemButton>
+                                            <ListItemButton><Link href={'/services'}>Services</Link></ListItemButton>
+                                            <ListItemButton><Link href={'/about'}>About</Link></ListItemButton>
+                                            <ListItemButton><Link href={'/contact'}>Contact</Link></ListItemButton>
+                                            <ListItemButton><Link href={'/team'}>Team</Link></ListItemButton>
+                                            {status === 'loading' ? <Loading /> :
+                                                user &&
+                                                <ListItemButton>
+                                                    <button onClick={() => {
+                                                        dispatch(ShowAlert())
+                                                    }} className="text-gray-500 transition hover:text-gray-500/75" > Transaction </button>
+                                                    <span className={`${ShowAlerttran === false ? 'hidden opacity-0' : 'flex opacity-100'}`}><AlertDAtaUser /></span>
+                                                </ListItemButton>
+                                            }
+                                            <ListItemButton className='LinkUser'>
+                                                <Link className="text-gray-500 transition hover:text-gray-500/75" href="/cart">
+                                                    <span className=''><CartCount /></span>
+                                                </Link>
+                                            </ListItemButton>
+                                        </List>
+                                    </Drawer>
+                                </React.Fragment>
                             </div>
                         </div>
                     </div>

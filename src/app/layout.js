@@ -10,7 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Analytics } from '@vercel/analytics/react';
 import AuthProvider from './provider/AuthProvider.js'
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
+import AlertNaveBar from '../components/AlertNaveBar'
 
 export default function RootLayout({ children }) {
     const initialOptions = {
@@ -26,6 +26,7 @@ export default function RootLayout({ children }) {
                     <PayPalScriptProvider options={initialOptions}>
                         <AuthProvider>
                             <ToastContainer />
+                            {/* <AlertNaveBar /> */}
                             {children}
                         </AuthProvider>
                     </PayPalScriptProvider>
