@@ -37,6 +37,8 @@ const Header = () => {
         };
     }, []);
 
+    console.log(session?.user?.role);
+
     return (
         <>
             <header className={`${header} fixed w-full z-30`}>

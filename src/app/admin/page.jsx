@@ -1,138 +1,124 @@
 'use client'
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from './components/header';
 import { useRouter } from 'next/navigation';
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { useAppDispatch, useAppSelector } from '../../lib/hooks';
+import { FetchCategory, FetchProducts } from '../../lib/features/ProductsSlice';
+import { Button } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useSession } from 'next-auth/react';
+import Loading from '../../components/Loading';
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+    [`&.${tableCellClasses.head}`]: {
+        backgroundColor: theme.palette.common.black,
+        color: theme.palette.common.white,
+    },
+    [`&.${tableCellClasses.body}`]: {
+        fontSize: 14,
+    },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+    '&:nth-of-type(odd)': {
+        backgroundColor: theme.palette.action.hover,
+    },
+    // hide last border
+    '&:last-child td, &:last-child th': {
+        border: 0,
+    },
+}));
 
 const Page = () => {
-    // const router = useRouter();
-    // const [Data, setData] = useState(
-    //     {
-    //         Email: '',
-    //         Password: ''
-    //     }
-    // )
-    // const user = JSON.parse(localStorage.getItem('admin'))
-    // const handleSubmitAdmin = (e) => {
-    //     e.preventDefault();
-    //     localStorage.setItem('admin', JSON.stringify(Data))
-    //     if (user.Email === Data.Email && user.Password === Data.Password) {
-    //         router.push('/admin/dashboard')
-    //     } else {
-    //         alert('Invalid Email or Password')
-    //     }
-    // }
-    // useEffect(() => {
-    //     try {
-    //         if (user) {
-    //             router.push('/admin/dashboard')
-    //         } else {
-    //             alert('Invalid Email or Password')
-    //         }
-    //     } catch (e) {
-    //         console.log(e)
-    //     } finally {
-    //         <h3>Loading...</h3>
-    //     }
-    // }, [])
+    const { products, category, isLoading, error } = useAppSelector((state) => state.data)
+    const dispatch = useAppDispatch()
+    const router = useRouter();
+    const { data: session, status } = useSession()
+    const user = session?.user
+
+    console.log(products);
+
+
+
+    useEffect(() => {
+        if (status === 'loading') return;
+
+        if (user?.role !== 'admin') {
+            router.push('/');
+        }
+        dispatch(FetchProducts());
+        dispatch(FetchCategory());
+    }, [user?.role, status, router]);
+
+
+
+    const handleDeleteProduct = (id) => {
+        if (window.confirm('Are you sure you want to delete this product?')) {
+            dispatch(DeleteProduct(id))
+        }
+    }
+
+    if (status === 'loading') return <Loading />;
 
 
     return (
         <>
             <Header />
-            <section className="relative flex flex-wrap pt-24 lg:h-screen lg:items-center">
-                <div className="w-full px-4 py-12 sm:px-6 sm:py-16  lg:px-8 lg:py-24">
-                    <div className="mx-auto max-w-lg text-center">
-                        <h1 className="text-2xl font-bold sm:text-3xl">Get started today!</h1>
-
-                        <p className="mt-4 text-gray-500">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et libero nulla eaque error neque
-                            ipsa culpa autem, at itaque nostrum!
-                        </p>
-                    </div>
-
-                    <form onSubmit={'handleSubmitAdmin'} action="#" className="mx-auto mb-0 mt-8 max-w-md space-y-4">
-                        <div>
-                            <label htmlFor="email" className="sr-only">Email</label>
-
-                            <div className="relative">
-                                <input
-                                    // onChange={(e) => {
-                                    //     setData({ ...Data, Email: e.target.value });
-                                    // }}
-                                    // value={Data.Email}
-                                    type="email"
-                                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                    placeholder="Enter email"
-                                />
-
-                                <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="size-4 text-gray-400"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
-                                        />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label htmlFor="password" className="sr-only">Password</label>
-
-                            <div className="relative">
-                                <input
-                                    // onChange={(e) => {
-                                    //     setData({ ...Data, Password: e.target.value });
-                                    // }}
-                                    // value={Data.Password}
-                                    type="password"
-                                    className="w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm"
-                                    placeholder="Enter password"
-                                />
-
-                                <span className="absolute inset-y-0 end-0 grid place-content-center px-4">
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        className="size-4 text-gray-400"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke="currentColor"
-                                    >
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                        />
-                                        <path
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth="2"
-                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                        />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center justify-between w-full mt-5">
-                            <button type="submit" className="inline-block w-full rounded-lg bg-blue-500 px-5 py-3 text-sm font-medium text-white">
-                                Sign in
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </section>
+            <div className=" m-auto pt-10 w-[90%] flex items-center justify-center">
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 1200, minWidth: 900, margin: 'auto' }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell align='center' width={150}>Image</StyledTableCell>
+                                <StyledTableCell align="center" width={200}>Title</StyledTableCell>
+                                <StyledTableCell align="center" width={200}>Description</StyledTableCell>
+                                <StyledTableCell align="center" width={150}>Category</StyledTableCell>
+                                <StyledTableCell align="center" width={100}>Price</StyledTableCell>
+                                <StyledTableCell align="center" width={100}>Quantity</StyledTableCell>
+                                <StyledTableCell align="center" width={100}>Update</StyledTableCell>
+                                <StyledTableCell align="center" width={100}>Details</StyledTableCell>
+                                <StyledTableCell align="center" width={100}>Delete</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {products.map((it) => (
+                                <StyledTableRow key={it.name}>
+                                    <StyledTableCell component="th" scope="row">
+                                        <img src={it.image} alt="" />
+                                    </StyledTableCell>
+                                    <StyledTableCell align="center">{it.title}</StyledTableCell>
+                                    <StyledTableCell align="center">{it.description.slice(0, 70)}...</StyledTableCell>
+                                    <StyledTableCell align="center">{it.category}</StyledTableCell>
+                                    <StyledTableCell align="center">{it.price}$</StyledTableCell>
+                                    <StyledTableCell align="center">{it.rating.count}</StyledTableCell>
+                                    <StyledTableCell align="center"><button className='bg-sky-700 w-28 rounded-lg flex items-center justify-center h-9 text-white' variant="contained" color="primary" startIcon={<EditIcon />}>
+                                        Update
+                                    </button></StyledTableCell>
+                                    <StyledTableCell align="center"><button className='bg-green-600 w-28 rounded-lg flex items-center justify-center h-9 text-white' variant="contained" color="primary" startIcon={<RemoveRedEyeIcon />}>
+                                        Details
+                                    </button></StyledTableCell>
+                                    <StyledTableCell align="center"><button className='bg-red-600 w-28 rounded-lg flex items-center justify-center h-9 text-white' variant="outlined" startIcon={<DeleteIcon />}>
+                                        Delete
+                                    </button></StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
         </>
-    );
-}
+    )
+};
 
 export default Page;
